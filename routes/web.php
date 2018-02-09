@@ -29,6 +29,8 @@ Route::get('/informasi_kelurahan', ['uses' => 'Pages\InformasiKelurahanControlle
 
 Route::get('/upload_file', ['uses' => 'Pages\ImportFileController@index'])->name('admin.upload_file');
 
+Route::post('/upload_file/import', ['uses' => 'Pages\ImportFileController@import_excel'])->name('admin.upload_file.import');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

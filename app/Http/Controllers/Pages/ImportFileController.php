@@ -4,6 +4,13 @@ namespace App\Http\Controllers\Pages;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Session;
+use Auth;
+use File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImportFileController extends Controller
 {
@@ -18,5 +25,26 @@ class ImportFileController extends Controller
     {
     	# code...
     	return view('pages.upload_file_laporan');
+    }
+
+     public function import_excel()
+    {
+        # code...
+        $file = Input::file('file');
+
+        $file_name = $file->getClientOriginalName();
+
+        $upload_success =  Input::file('file')->move('file_laporan',$file_name);
+
+        if($upload_success){
+            return response('sukses',200);
+
+        }
+
+        else{
+            return response('gagal',400);
+        }
+
+               
     }
 }
