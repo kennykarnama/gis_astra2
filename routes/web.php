@@ -11,7 +11,10 @@
 |
 */
 
-
+Route::get('/pusher', function() {
+    event(new App\Events\ImportLaporanEvent('Hi there Pusher!'));
+    return "Event has been sent!";
+});
 
 Route::get('/admin/login', ['uses' => 'Auth\AdminLoginController@showLoginForm'])->name('admin.login');
 
@@ -30,6 +33,8 @@ Route::get('/informasi_kelurahan', ['uses' => 'Pages\InformasiKelurahanControlle
 Route::get('/upload_file', ['uses' => 'Pages\ImportFileController@index'])->name('admin.upload_file');
 
 Route::post('/upload_file/import', ['uses' => 'Pages\ImportFileController@import_excel'])->name('admin.upload_file.import');
+
+
 
 Auth::routes();
 

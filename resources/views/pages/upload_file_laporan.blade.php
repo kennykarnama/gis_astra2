@@ -1,6 +1,9 @@
 @extends('layouts.dashboard')
 
 @section('content')
+ <!-- Sweetalert Css -->
+    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
 <section class="content">
         <div class="container-fluid">
             <div class="block-header">
@@ -44,5 +47,27 @@
    @push('scripts')
    	  <!-- Dropzone Plugin Js -->
     <script src="../../plugins/dropzone/dropzone.js"></script>
+    <!-- SweetAlert Plugin Js -->
+    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+
+     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('5fa72d9a1e34cb5edb3c', {
+      cluster: 'ap1',
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('test-channel');
+    channel.bind('App\\Events\\ImportLaporanEvent', addMessage);
+
+    function addMessage(data) {
+        swal("Good job!", data.message, "success");
+      }
+
+    </script>
    @endpush
 @stop

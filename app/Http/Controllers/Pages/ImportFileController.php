@@ -11,6 +11,8 @@ use File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Jobs\ImportToDbJob;
+use App\Events\ImportLaporanEvent;
 
 class ImportFileController extends Controller
 {
@@ -37,8 +39,15 @@ class ImportFileController extends Controller
         $upload_success =  Input::file('file')->move('file_laporan',$file_name);
 
         if($upload_success){
-            return response('sukses',200);
+           
 
+            $path = public_path()."/file_laporan/".$file_name;
+
+            dispatch(new ImportToDbJob($path));
+
+        
+          
+             return response('sukses',200);
         }
 
         else{
