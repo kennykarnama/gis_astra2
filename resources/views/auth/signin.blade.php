@@ -3,10 +3,10 @@
  @section('content')
  <main>
     <center>
-      <img class="responsive-img" style="width: 100px;" src="{{asset('images/earth.png')}}" />
+      <img class="responsive-img" style="width: 100px;" src="{{asset('images/astra.jpg')}}" />
       <div class="section"></div>
 
-      <h5 class="indigo-text">Please, login into your account</h5>
+      <h5 class="indigo-text">Astra Credit Companies - Geography Information System</h5>
       <div class="section"></div>
 
       <div class="container">
