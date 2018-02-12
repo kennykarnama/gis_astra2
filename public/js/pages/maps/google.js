@@ -1,5 +1,9 @@
 $(function () {
     //Basic Map
+
+   
+   
+
     var basicMap = new GMaps({
         el: '#gmap_basic_example',
         lat: -12.043333,
@@ -32,6 +36,22 @@ $(function () {
         title: 'Marker with InfoWindow',
         infoWindow: {
             content: '<p>HTML Content</p>'
+        }
+    });
+
+    markers.addMarker({
+        lat: -12.042,
+        lng: -77.03,
+        title: 'Test',
+        icon:"http://localhost:8000/images/mapmarkers/pirates.png",
+        details: {
+            database_id: 42,
+            author: 'HPNeo'
+        },
+        click: function (e) {
+            if (console.log)
+                console.log(e);
+            alert('You clicked in this marker');
         }
     });
 

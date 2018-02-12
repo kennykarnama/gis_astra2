@@ -34,6 +34,9 @@ Route::get('/upload_file', ['uses' => 'Pages\ImportFileController@index'])->name
 
 Route::post('/upload_file/import', ['uses' => 'Pages\ImportFileController@import_excel'])->name('admin.upload_file.import');
 
+Route::get('/visualisasi/umum', ['uses' => 'Pages\VisualisasiDataController@umum'])->name('admin.visualisasi.umum');
+
+Route::post('/visualisasi/umum/fetch_customer_markers', ['uses' => 'Pages\VisualisasiDataController@fetch_customer_markers'])->name('admin.visualisasi.umum.fetch_customer_markers');
 
 
 Auth::routes();
