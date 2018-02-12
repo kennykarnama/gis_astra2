@@ -127,8 +127,8 @@
                             };
 
                             var legend = "<div id='legend'><h3>Legend</h3>";
-                            legend+="<div>"+"<img src='"+"{{asset('images/mapmarkers')}}"+'/pirates.png'+"'>Customer < Target</div>";
-                            legend+="<div>"+"<img src='"+"{{asset('images/mapmarkers')}}"+'/flag-export.png'+"'>Customer >= Target</div></div>";
+                            legend+="<div>"+"<img src='"+"{{asset('images/mapmarkers')}}"+'/red_dot.png'+"'>Customer < Target</div>";
+                            legend+="<div>"+"<img src='"+"{{asset('images/mapmarkers')}}"+'/green_dot.png'+"'>Customer >= Target</div></div>";
                              markers.addControl({
                               position: 'right_bottom',
                               content: legend,

@@ -27,8 +27,8 @@ class VisualisasiDataController extends Controller
     {
     	# code...
     	$icon = array(
-    		0 => 'pirates.png',
-    		1 => 'flag-export.png'
+    		0 => 'red_dot.png',
+    		1 => 'green_dot.png'
     		);
 
     	$customer_markers = MyAnalisis::fetch_customer_markers($icon);
