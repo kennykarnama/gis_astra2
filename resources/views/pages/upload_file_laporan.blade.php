@@ -2,7 +2,7 @@
 
 @section('content')
  <!-- Sweetalert Css -->
-    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="{{asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
 
 <section class="content">
         <div class="container-fluid">
@@ -46,9 +46,9 @@
 
    @push('scripts')
    	  <!-- Dropzone Plugin Js -->
-    <script src="../../plugins/dropzone/dropzone.js"></script>
+    <script src="{{asset('plugins/dropzone/dropzone.js')}}"></script>
     <!-- SweetAlert Plugin Js -->
-    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
 
      <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
   <script>
