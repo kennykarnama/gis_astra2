@@ -5,6 +5,21 @@
 <!-- Sweetalert Css -->
     <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
+<style type="text/css">
+#legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+</style>
 	
 	 <section class="content">
         <div class="container-fluid">
@@ -35,6 +50,7 @@
                         </div>
                         <div class="body">
                             <div id="visualisasi_umum" class="gmap"></div>
+                           
                         </div>
                     </div>
                 </div>
@@ -97,6 +113,31 @@
                                 });
 
                             }
+
+                                    var icons = {
+                              parking: {
+                                name: 'Customer < Target',
+                                icon: "{{asset('images/mapmarkers')}}" + '/pirates.png'
+                              },
+                              library: {
+                                name: 'Customer >= Target',
+                                icon: "{{asset('images/mapmarkers')}}" + '/flag-export.png'
+                              },
+                              
+                            };
+
+                            var legend = "<div id='legend'><h3>Legend</h3>";
+                            legend+="<div>"+"<img src='"+"{{asset('images/mapmarkers')}}"+'/pirates.png'+"'>Customer < Target</div>";
+                            legend+="<div>"+"<img src='"+"{{asset('images/mapmarkers')}}"+'/flag-export.png'+"'>Customer >= Target</div></div>";
+                             markers.addControl({
+                              position: 'right_bottom',
+                              content: legend,
+                              events: {
+                                click: function(){
+                                  console.log(this);
+                                }
+                              }
+                            });
                        }
                     });
      }
