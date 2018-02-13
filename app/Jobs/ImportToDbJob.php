@@ -41,8 +41,9 @@ class ImportToDbJob implements ShouldQueue
     public function handle()
     {
         //
+        ini_set('memory_limit', '-1');
 
-          DB::table('report')->truncate();
+          DB::table('report_rev')->truncate();
 
         Excel::filter('chunk')->load($this->path)->chunk(250, function($results)
                 {
@@ -68,11 +69,13 @@ class ImportToDbJob implements ShouldQueue
 
                             }
 
+                            //dd($tmp);
+
                             array_push($prepared_data, $tmp);
 
                         }
 
-                       DB::table('report')->insert($prepared_data);
+                       DB::table('report_rev')->insert($prepared_data);
 
 
         
