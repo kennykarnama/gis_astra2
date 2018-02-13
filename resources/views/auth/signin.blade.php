@@ -3,7 +3,7 @@
  @section('content')
  <main>
     <center>
-      <img class="responsive-img" style="width: 100px;" src="{{asset('images/astra.jpg')}}" />
+      <img class="responsive-img" style="width: 100px;" src="{{asset('images/astra_2.png')}}" />
       <div class="section"></div>
 
       <h5 class="indigo-text">Astra Credit Companies - Geography Information System</h5>
