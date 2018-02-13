@@ -60,31 +60,27 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>Informasi Wilayah</span>
-                                </a>
 
-                                <ul class="ml-menu">
-                                    <li id="menu-kecamatan">
-
-                                        <a href="{{route('admin.informasi_kecamatan')}}">
-                                            <span>Daftar Kecamatan</span>
-                                        </a>
-
-                                    </li>
-
-                                    <li id="menu-kelurahan">
-
-                                        <a href="{{route('admin.informasi_kelurahan')}}">
-                                            <span>Daftar Kelurahan</span>
-                                        </a>
-
-                                    </li>
-                                </ul>
-                            </li>
                         </ul>
                     </li> -->
+
+                     <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">computer</i>
+                            <span>Laporan</span>
+                        </a>
+
+                        <ul class="ml-menu">
+                            <li id="menu-informasi-arho">
+                                <a href="{{route('admin.laporan.status_customer')}}">
+                                    <span>Status Customer</span>
+                                </a>
+                            </li>
+
+                            
+                        </ul>
+                    </li>
+
 
                     
                     <li>

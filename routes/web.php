@@ -38,6 +38,9 @@ Route::get('/visualisasi/umum', ['uses' => 'Pages\VisualisasiDataController@umum
 
 Route::post('/visualisasi/umum/fetch_customer_markers', ['uses' => 'Pages\VisualisasiDataController@fetch_customer_markers'])->name('admin.visualisasi.umum.fetch_customer_markers');
 
+Route::get('/laporan/status_customer', ['uses' => 'Pages\StatusCustomerController@index'])->name('admin.laporan.status_customer');
+
+Route::post('/laporan/status_customer/allCustomers', ['uses' => 'Pages\StatusCustomerController@allCustomers'])->name('admin.laporan.status_customer.allCustomers');
 
 Auth::routes();
 

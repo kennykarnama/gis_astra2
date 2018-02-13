@@ -7,6 +7,24 @@ use DB;
 
 class MyAnalisis {
 
+
+
+	public static function fetch_reports()
+	{
+		# code...
+		$query = DB::table('report_rev')->whereNotNull('report_rev.KECAMATAN')->get();
+
+		return $query;
+	}
+
+	public static function hitung_reports()
+	{
+		# code...
+		$query = DB::table('report_rev')->whereNotNull('report_rev.KECAMATAN')->count();
+
+		return $query;
+	}
+
 	public static function fetch_arho(){
 		
 		$query = DB::table('arho')->where('arho.is_aktif','=',1)->get();
