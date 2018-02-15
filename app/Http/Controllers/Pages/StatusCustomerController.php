@@ -19,6 +19,24 @@ class StatusCustomerController extends Controller
     	ini_set('memory_limit', '-1');
     }
 
+    public function ubah_status_customer(Request $request)
+    {
+        # code...
+        $no_agreement = $request['no_agreement'];
+
+        $status_customer = $request['status_customer'];
+
+        $status = DB::table('report_rev')->where('report_rev.Agreement','=',$no_agreement)
+                                         ->update(['status_customer'=>$status_customer]);
+
+        if($status){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
     public function allCustomers(Request $request)
     {
     	# code...
@@ -93,7 +111,22 @@ class StatusCustomerController extends Controller
 
         		$nested['kelurahan'] = $customer->KELURAHAN;
 
-        		$nested['actions'] = '<button type="button" class="btn bg-blue waves-effect">Ubah Status</button>';
+                $status = '';
+
+                if($customer->status_customer == 1){
+                    $status = ">= Target";
+                }
+
+                else{
+                    $status = "< Target";
+                }
+
+                $nested['status_customer'] = $status;
+
+        		$nested['actions'] = '<button type="button" data-statuscustomer='.$customer->status_customer.' 
+                data-noagreement='.$customer->Agreement.' 
+                class="btn bg-blue waves-effect btn-ubah-status-customer">
+                Ubah Status</button>';
 
         		array_push($data, $nested);
 

@@ -1,6 +1,9 @@
 @extends('layouts.dashboard')
 
 @section('content')
+
+ <!-- Sweetalert Css -->
+    <link href="{{asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
 	
 	<section class="content">
 
@@ -26,6 +29,7 @@
                                             <th>Arho</th>
                                             <th>Kecamatan</th>
                                             <th>Kelurahan</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -55,10 +59,72 @@
     <script src="{{asset('plugins/jquery-datatable/extensions/export/vfs_fonts.js')}}"></script>
     <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.html5.min.js')}}"></script>
     <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script>
-	<script type="text/javascript">
+	 <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
+    <script type="text/javascript">
+
+    var tabel_customers;
+
+    function ubah_status_customer (status_customer,no_agreement) {
+        // body...
+
+        if(status_customer == 0){
+            status_customer = 1;
+        }
+
+        else{
+            status_customer = 0;
+        }
+
+        swal({
+        title: "Konfirmasi Update Status Customer",
+        text: "Apakah anda ingin mengupdate status customer?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Proceed!",
+        closeOnConfirm: false
+    }, function (isConfirm) {
+        if (!isConfirm) return;
+
+        $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+            url: "{{route('admin.laporan.status_customer.ubah_status_customer')}}",
+            type: "POST",
+            data: {
+              "no_agreement":no_agreement,
+              'status_customer':status_customer
+            },
+            dataType: "json",
+            success: function (data) {
+              console.log(data);
+
+              if(data==1){
+                swal("Done!", "Status Customer berhasil diubah", "success");
+
+                
+              }
+
+              else{
+                swal("Failed!", "Status customer gagal diubah", "error");
+              }
+
+             tabel_customers.ajax.reload();
+                
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                swal("Error!", "Please try again", "error");
+            }
+        });
+    });
+    }
 		$(document).ready(function  () {
 			// body...
-			  $('#tabel_customers').DataTable({
+			tabel_customers =  $('#tabel_customers').DataTable({
             "processing": true,
             "serverSide": true,
              "order": [],
@@ -79,10 +145,20 @@
                 {"data":"arho"},
                 { "data": "kecamatan" },
                 {"data":"kelurahan"},
+                {"data":"status_customer"},
                 {"data":"actions"}
             ]	 
 
         });
+
+              $('#tabel_customers tbody').on('click','.btn-ubah-status-customer',function  () {
+                  // body...
+                  var status_customer = $(this).data('statuscustomer');
+
+                  var no_agreement = $(this).data('noagreement');
+
+                  ubah_status_customer(status_customer,no_agreement);
+              });
 		});
 	</script>
 @endpush
