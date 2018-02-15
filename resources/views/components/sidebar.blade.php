@@ -40,10 +40,28 @@
                     </li>
 
                     <li id="menu-upload-file">
-                        <a href="{{route('admin.upload_file')}}">
+                        <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">cloud</i>
-                            <span>Upload File Laporan</span>
+                            <span>Upload</span>
                         </a>
+
+                         <ul class="ml-menu">
+
+                            <li>
+                                <a href="{{route('admin.upload_file')}}">
+                                    <span>File Laporan</span>
+                                </a>
+                            </li>
+                           
+                            <li>
+                                <a href="{{route('admin.laporan.target_arho')}}">
+                                    <span>Target Arho</span>
+                                </a>
+                            </li>
+
+                            
+                        </ul>
+
                     </li>
 
                     
@@ -79,7 +97,7 @@
 
                             <li>
                                 <a href="{{route('admin.laporan.target_arho')}}">
-                                    <span>Target Arho</span>
+                                    <span>Data Target Arho</span>
                                 </a>
                             </li>
 
@@ -102,17 +120,7 @@
                                 </a>
                             </li>
 
-                            <!-- <li>
-                                <a href="#">
-                                    <span>Arho</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <span>Kecamatan</span>
-                                </a>
-                            </li> -->
+                          
                         </ul>
                     </li>   
                    
