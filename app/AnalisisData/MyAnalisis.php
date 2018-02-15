@@ -45,6 +45,20 @@ class MyAnalisis {
 
 			$nested = array();
 
+			$nested['no_agreement'] = $customer->Agreement;
+
+			$nested['alamat'] = $customer->Alamat;
+
+			$nested['kode_pos'] =$customer->Kd_Pos;
+
+			$nested['kecamatan'] = $customer->KECAMATAN;
+
+			$nested['kelurahan'] = $customer->KELURAHAN;
+
+			$nested['tgl_due'] = $customer->Tgl_Due;
+
+			$nested['saldo'] = $customer->Saldo;
+
 			$nested['latitude']  = $customer->latitude;
 
 			$nested['longitude'] = $customer->longitude;

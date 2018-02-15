@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Sweetalert Css -->
-    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="{{asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
 
 <style type="text/css">
 #legend {
@@ -57,6 +57,99 @@
             </div>
             
         </div>
+
+         <div class="modal fade" id="modal-info-customer" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">Detail Customer</h4>
+                        </div>
+                        <div class="modal-body">
+
+                           <div class="col-sm-12">
+                                     <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="no_agreement">
+                                            <label class="form-label">No Agreement</label>
+                                        </div>
+                                    </div>
+                                   
+                              </div>
+
+
+                           
+                            <div class="col-sm-12">
+
+                              <div class="form-group form-float">
+                                   <div class="form-line">
+                                            <textarea rows="4" class="form-control no-resize" placeholder="Alamat" id="alamat_customer"></textarea>
+                                      </div>
+                              </div>
+                                   
+                            </div>
+
+                            <div class="col-sm-12">
+                                     <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="kode_pos">
+                                            <label class="form-label">Kode Pos</label>
+                                        </div>
+                                    </div>
+                                   
+                              </div>
+
+
+                                <div class="col-sm-12">
+                                     <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="kelurahan">
+                                            <label class="form-label">Kelurahan</label>
+                                        </div>
+                                    </div>
+                                   
+                              </div>
+
+                                <div class="col-sm-12">
+                                     <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="kecamatan">
+                                            <label class="form-label">Kecamatan</label>
+                                        </div>
+                                    </div>
+                                   
+                              </div>
+
+                                 <div class="col-sm-12">
+                                     <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="tgl_due" val="">
+                                            <label class="form-label">Tanggal Due</label>
+                                        </div>
+                                    </div>
+                                   
+                              </div>
+
+                                 <div class="col-sm-12">
+                                     <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="saldo">
+                                            <label class="form-label">Saldo</label>
+                                        </div>
+                                    </div>
+                                   
+                              </div>
+
+
+
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </section>
 
     @push('scripts')
@@ -72,6 +165,27 @@
      <script type="text/javascript">
 
       var markers;
+
+      function load_detail_customer (customer) {
+        // body...
+        $('#no_agreement').val(customer.no_agreement);
+
+        $('#alamat_customer').val(customer.alamat);
+
+        $('#kecamatan').val(customer.kecamatan);
+
+        $('#kelurahan').val(customer.kelurahan);
+
+        $('#tgl_due').val(customer.tgl_due);
+
+        $('#kode_pos').val(customer.kode_pos);
+
+        $('#saldo').val(customer.saldo);
+
+        $('.form-line').addClass('focused');
+
+        $('#modal-info-customer').modal('show');
+      }
 
      function load_markers () {
          // body...
@@ -104,11 +218,14 @@
                                     lng: customer.longitude,
                                     title: 'Customer '+(i+1),
                                     icon : icon_customer,
+                                    data_customer:customer,
 
                                     click: function (e) {
                                         if (console.log)
                                             console.log(e);
-                                        swal("Arho", customer.arho, "success");
+
+
+                                       load_detail_customer(this.data_customer);
                                     }
                                 });
 
