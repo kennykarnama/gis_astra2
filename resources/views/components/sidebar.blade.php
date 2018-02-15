@@ -77,6 +77,12 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{route('admin.laporan.target_arho')}}">
+                                    <span>Target Arho</span>
+                                </a>
+                            </li>
+
                             
                         </ul>
                     </li>

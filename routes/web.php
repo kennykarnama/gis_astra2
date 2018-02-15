@@ -44,6 +44,8 @@ Route::post('/laporan/status_customer/allCustomers', ['uses' => 'Pages\StatusCus
 
 Route::post('/laporan/status_customer/ubah_status_customer', ['uses' => 'Pages\StatusCustomerController@ubah_status_customer'])->name('admin.laporan.status_customer.ubah_status_customer');
 
+Route::get('/laporan/target_arho', ['uses' => 'Pages\TargetArhoController@index'])->name('admin.laporan.target_arho');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
