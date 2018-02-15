@@ -14,6 +14,8 @@ class VisualisasiDataController extends Controller
     {
     	# code...
     	$this->middleware('auth:admin');
+
+        ini_set('memory_limit', '-1');
     }
 
     public function umum()
@@ -27,11 +29,13 @@ class VisualisasiDataController extends Controller
     {
     	# code...
     	$icon = array(
-    		0 => 'red_dot.png',
-    		1 => 'green_dot.png'
+    		"0" => 'red_dot.png',
+    		"1" => 'green_dot.png'
     		);
 
     	$customer_markers = MyAnalisis::fetch_customer_markers($icon);
+
+        //dd($customer_markers);
 
     	return response()->json($customer_markers);
     }

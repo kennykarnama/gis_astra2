@@ -35,13 +35,13 @@ class MyAnalisis {
 	public static function fetch_customer_markers($icon)
 	{
 		# code...
-		$query = DB::table('report')->whereNotNull('report.ARHO')->get();
+		$query = DB::table('report_rev')->whereNotNull('report_rev.ARHO')->get();
 
 		$final_query = array();
 
 		foreach ($query as $customer) {
 			# code...
-			$target = rand(0,1);
+			$status_customer = $customer->status_customer;
 
 			$nested = array();
 
@@ -51,7 +51,7 @@ class MyAnalisis {
 
 			$nested['arho'] = $customer->ARHO;
 
-			$nested['icon'] = $icon[$target];
+			$nested['icon'] = $icon[$status_customer];
 
 			array_push($final_query, $nested);
 		}
