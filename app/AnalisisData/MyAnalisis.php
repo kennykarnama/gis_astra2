@@ -8,6 +8,18 @@ use DB;
 class MyAnalisis {
 
 
+	public static function fetch_target_arho()
+	{
+		# code...
+		$query = DB::table('target_arho')
+					 ->join('arho','target_arho.id_arho','=','arho.id_arho')
+					 ->where('arho.is_aktif','=',1)
+					->where('target_arho.is_deleted','=',0)
+					->get();
+
+		return $query;
+
+	}
 
 	public static function fetch_reports()
 	{
@@ -30,6 +42,23 @@ class MyAnalisis {
 		$query = DB::table('arho')->where('arho.is_aktif','=',1)->get();
 
 		return $query;
+	}
+
+	public function fetch_arho_markers($icon)
+	{
+		# code...
+		// select distinct arho
+
+		// foreach arho
+
+			// find same name arho, 
+				// find kelurahan in table kecamatan, get coordinate
+				// create object (make class Kelurahan)
+				// assign attribute lang, lat, and icon based on target (rand)
+			// push to array
+		// create class Arho, assign nama_arho and kecamatan 
+
+		// return
 	}
 
 	public static function fetch_customer_markers($icon)
