@@ -187,6 +187,30 @@
         $('#modal-info-customer').modal('show');
       }
 
+      function load_arho_markers () {
+        // body...
+          $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.visualisasi.umum.fetch_arho_markers")}}',
+                   data:{
+
+                    
+
+                   },
+                   success:function(data){
+                        
+                        console.log(data);               
+
+                   }
+                });
+      }
+
      function load_markers () {
          // body...
         $.ajaxSetup({
@@ -211,7 +235,7 @@
 
                                 var icon_customer = "{{asset('images/mapmarkers')}}"+"/"+customer.icon;
 
-                                console.log(icon_customer);
+                                // console.log(icon_customer);
 
                                         markers.addMarker({
                                     lat: customer.latitude,
@@ -269,6 +293,8 @@
     });
 
             load_markers();
+
+            load_arho_markers();
 
         });
      </script>  
