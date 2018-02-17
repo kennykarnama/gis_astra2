@@ -14,7 +14,7 @@ class MyAnalisis {
 		$query = DB::table('target_arho')
 					 ->join('arho','target_arho.id_arho','=','arho.id_arho')
 					 ->where('arho.is_aktif','=',1)
-					->where('target_arho.is_deleted','=',0)
+					
 					->get();
 
 		return $query;
