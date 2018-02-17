@@ -61,7 +61,7 @@ class TargetArhoController extends Controller
                     ->where('target_arho.id_arho','=',$id_arho)
                     ->update([
 
-                        'is_deleted'=>0
+                        'is_deleted'=>1
                         ]);
             
 

@@ -194,7 +194,7 @@
               if(data==1){
                 swal("Done!", "Target Customer berhasil diubah", "success");
 
-                
+                location.reload();
               }
 
               else{
