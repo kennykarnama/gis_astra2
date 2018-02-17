@@ -25,6 +25,7 @@
                         		 		<th style="text-align:center;">Target</th>
                         		 		<th style="text-align:center;">Tanggal</th>
                         		 		<th style="text-align:center;">Status Target</th>
+                        		 		<th style="text-align:center;">Actions</th>
                         		 	</thead>
 
                         		 	<tbody>
@@ -58,6 +59,10 @@
 
                         		 					</td>
                         		 				@endif
+
+                        		 				<td style="text-align:center;">
+                        		 					<button class="btn btn-primary">Edit</button>
+                        		 				</td>
                         		 				
                         		 			</tr>
                         		 		@endforeach
