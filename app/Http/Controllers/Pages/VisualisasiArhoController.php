@@ -42,10 +42,10 @@ class VisualisasiArhoController extends Controller
     			$list_kecamatan[$j]->TARGET = $target[0]->besar_target;
 
     			if($jumlah_saldo < $target[0]->besar_target){
-    				$arho->avatar = 'red.png';
+    				$arho->avatar = 'pirates.png';
     			}
     			else{
-    				$arho->avatar =  'green.png';
+    				$arho->avatar =  'campfire-2.png';
     			}
     		}
 

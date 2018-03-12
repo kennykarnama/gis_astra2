@@ -31,7 +31,7 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <div id="visualisasi_umum" class="gmap"></div>
+                            <div id="visualisasi_arho" class="gmap"></div>
                            
                         </div>
                     </div>
@@ -39,6 +39,27 @@
             </div>
             
         </div>
+
+          <div class="modal fade" id="modal-detail-arho" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
+                            vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
+                            Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
+                            nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
+                            Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
          
     </section>
@@ -54,6 +75,13 @@
     <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
 
     <script type="text/javascript">
+
+    var visualisasi_arho;
+
+    function load_detail_arho () {
+      // body...
+      $('#modal-detail-arho').modal('show');
+    }
 
     function load_laporan_arho () {
         // body...
@@ -76,6 +104,70 @@
                     });
     };
 
+    function setup_markers (data) {
+      // body...
+      for(var i = 0; i < data.length; i++){
+          
+          var penugasan = data[i];
+
+          var nama_arho = penugasan.arho.nama_lengkap;
+
+          var avatar = penugasan.arho.avatar;
+
+          var icon_path = "{{asset('images/mapmarkers')}}"+"/"+avatar;
+
+          var list_kecamatan = penugasan.kecamatan;
+
+          for(var j=0; j < list_kecamatan.length; j++){
+            
+            var kecamatan = list_kecamatan[j];
+
+            var latitude = kecamatan.lat;
+
+            var longitude = kecamatan.lng;
+
+            //console.log(lat+" "+lng);
+
+            //console.log(kecamatan.LAPORAN);
+            var mycontent = '<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
+                                      +"<p style='text-align:center;'><button class='btn btn-primary btn-detail-arho'"
+                                     
+                                      +" >Lihat Detail</button>";
+
+            // var infowindow = new google.maps.InfoWindow({
+            //     content: '<div id="myInfoWinDiv">'+ mycontent +'</div>'
+            // });
+
+            visualisasi_arho.addMarker({
+                lat: latitude,
+                lng: longitude,
+                title: nama_arho+" Kecamatan "+kecamatan.nama_kecamatan,
+                icon : icon_path,
+                infoWindow: {
+                              content: '<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
+                                      +"<p style='text-align:center;'> <a target='_blank' href='https://www.w3schools.com'>Lihat Detail</a>"
+                                      +"<p>Jumlah Saldo "+kecamatan.LAPORAN.jumlah_saldo+"</p>"
+                                      +"<p> Target Arho "+kecamatan.TARGET +"</p>"
+                            },
+                        mouseover: function(){
+                (this.infoWindow).open(this.map, this);
+            },
+            // mouseout: function(){
+            //     this.infoWindow.close();
+            // },
+            //     click: function(e){
+            //       load_detail_arho();
+            //     }
+              });
+
+
+          }
+
+  
+
+      }
+    };
+
     function load_markers () {
         // body...
           $.ajaxSetup({
@@ -92,16 +184,24 @@
                       
                        },
                        success:function(data){
-                         console.log(data);
+
+                        setup_markers(data);
+                         
                        }
                     });
     }
 
         $(document).ready(function () {
             // body...
-
+          visualisasi_arho = new GMaps({
+            div: '#visualisasi_arho',
+            lat:  -7.250445,
+            lng: 112.768845
+         });
             //load_laporan_arho();
             load_markers();
+
+           
         });
 
     </script>
