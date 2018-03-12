@@ -134,9 +134,13 @@
                                      
                                       +" >Lihat Detail</button>";
 
-            // var infowindow = new google.maps.InfoWindow({
-            //     content: '<div id="myInfoWinDiv">'+ mycontent +'</div>'
-            // });
+            
+
+            var alamat_detail_laporan = "{{route('admin.visualisasi.arho.detail_laporan',[':arho',':kecamatan'])}}";
+            alamat_detail_laporan = alamat_detail_laporan.replace(':arho',penugasan.arho.id_arho);
+             alamat_detail_laporan = alamat_detail_laporan.replace(':kecamatan',kecamatan.id_kecamatan);
+
+           
 
             visualisasi_arho.addMarker({
                 lat: latitude,
@@ -145,8 +149,12 @@
                 icon : icon_path,
                 infoWindow: {
                               content: '<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
-                                      +"<p style='text-align:center;'> <a target='_blank' href='https://www.w3schools.com'>Lihat Detail</a>"
+                                      +"<p style='text-align:center;'> <a target='_blank' href='"+alamat_detail_laporan+"'>Lihat Detail</a>"
                                       +"<p>Jumlah Saldo "+kecamatan.LAPORAN.jumlah_saldo+"</p>"
+                                      +"<p>Bal 7 "+kecamatan.LAPORAN.bal7+"</p>"
+                                      +"<p>% Bal 7 "+kecamatan.LAPORAN.persen_bal7+"</p>"
+                                      +"<p>Bal 30 "+kecamatan.LAPORAN.bal30+"</p>"
+                                      +"<p>% Bal 30"+kecamatan.LAPORAN.persen_bal30+"</p>"
                                       +"<p> Target Arho "+kecamatan.TARGET +"</p>"
                             },
                         mouseover: function(){
