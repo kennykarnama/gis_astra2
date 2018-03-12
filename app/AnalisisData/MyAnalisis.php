@@ -13,7 +13,13 @@ use App\AnalisisData\Arho;
 
 class MyAnalisis {
 
-	
+	public static function fetch_laporan()
+	{
+		# code...
+		$query = DB::table('report')->whereNotNull('report.ARHO')->get();
+
+		return $query;
+	}
 	public static function fetch_target_arho()
 	{
 		# code...
@@ -25,6 +31,19 @@ class MyAnalisis {
 
 		return $query;
 
+	}
+
+	public static function fetch_target_arho_by_nama_lengkap($nama_lengkap)
+	{
+		# code...
+			$query = DB::table('target_arho')
+					 ->join('arho','target_arho.id_arho','=','arho.id_arho')
+					 ->where('arho.is_aktif','=',1)
+					 ->where('arho.nama_lengkap','=',$nama_lengkap)
+					
+					->get();
+
+		return $query;
 	}
 
 	public static function fetch_reports()
@@ -46,6 +65,15 @@ class MyAnalisis {
 	public static function fetch_arho(){
 		
 		$query = DB::table('arho')->where('arho.is_aktif','=',1)->get();
+
+		return $query;
+	}
+
+	public static function fetch_arho_xls()
+	{
+		# code...
+		$query = DB::table('report')->select('report.ARHO')->distinct()
+							->get();
 
 		return $query;
 	}
@@ -214,6 +242,20 @@ class MyAnalisis {
 		$query = DB::table('kecamatan')->where('kecamatan.is_aktif','=',1)->get();
 
 		return $query;
+	}
+
+	public static function select_kecamatan_xls_db($kecamatan_xls,$list_kecamatan_db)
+	{
+		# code...
+		
+			# code...
+			foreach ($list_kecamatan_db as $kecamatan_db) {
+				# code...
+				if(strtolower($kecamatan_db->nama_kecamatan) == strtolower($kecamatan_xls->KECAMATAN)){
+					return $kecamatan_db;
+				}
+			}
+		
 	}
 
 	public static function fetch_kecamatan_by_arho($arho)

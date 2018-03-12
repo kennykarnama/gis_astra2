@@ -40,6 +40,11 @@ Route::post('/visualisasi/umum/fetch_customer_markers', ['uses' => 'Pages\Visual
 
 Route::post('/visualisasi/umum/fetch_arho_markers', ['uses' => 'Pages\VisualisasiDataController@fetch_arho_markers'])->name('admin.visualisasi.umum.fetch_arho_markers');
 
+Route::get('/visualisasi/arho', ['uses' => 'Pages\VisualisasiArhoController@indexHome'])->name('admin.visualisasi.arho');
+
+Route::post('/visualisasi/arho/get_laporan_arho', ['uses' => 'Pages\VisualisasiArhoController@get_laporan_arho'])->name('admin.visualisasi.arho.get_laporan_arho');
+
+Route::post('/visualisasi/arho/fetch_markers', ['uses' => 'Pages\VisualisasiArhoController@fetch_markers'])->name('admin.visualisasi.arho.fetch_markers');
 
 Route::get('/laporan/status_customer', ['uses' => 'Pages\StatusCustomerController@index'])->name('admin.laporan.status_customer');
 
@@ -50,6 +55,7 @@ Route::post('/laporan/status_customer/ubah_status_customer', ['uses' => 'Pages\S
 Route::get('/laporan/target_arho', ['uses' => 'Pages\TargetArhoController@index'])->name('admin.laporan.target_arho');
 
 Route::post('/laporan/target_arho/update_target', ['uses' => 'Pages\TargetArhoController@update_target_arho'])->name('admin.laporan.target_arho.update_target');
+
 
 
 Auth::routes();

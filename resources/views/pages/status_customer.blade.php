@@ -124,7 +124,7 @@
     }
 		$(document).ready(function  () {
 			// body...
-			tabel_customers =  $('#tabel_customers').DataTable({
+			 $('#tabel_customers').DataTable({
             "processing": true,
             "serverSide": true,
              "order": [],

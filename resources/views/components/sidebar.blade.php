@@ -83,7 +83,7 @@
                         </ul>
                     </li> -->
 
-                     <li>
+                  <!--    <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">computer</i>
                             <span>Laporan</span>
@@ -105,7 +105,7 @@
                             
                         </ul>
                     </li>
-
+ -->
 
                     
                     <li>
@@ -115,13 +115,17 @@
                         </a>
 
                         <ul class="ml-menu">
-                            <li>
+                           <!--  <li>
                                 <a href="{{route('admin.visualisasi.umum')}}">
                                     <span>Umum</span>
                                 </a>
-                            </li>
+                            </li> -->
 
-                          
+                            <li>
+                                <a href="{{route('admin.visualisasi.arho')}}">
+                                    <span>Arho</span>
+                                </a>
+                            </li>                          
                         </ul>
                     </li>   
                    
