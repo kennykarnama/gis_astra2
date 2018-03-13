@@ -134,7 +134,7 @@
                             </li>  
 
                              <li>
-                                <a href="{{route('admin.visualisasi.arho')}}">
+                                <a href="{{route('admin.visualisasi.kecamatan')}}">
                                     <span>Kecamatan</span>
                                 </a>
                             </li>                          
