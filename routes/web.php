@@ -34,6 +34,10 @@ Route::get('/upload_file', ['uses' => 'Pages\ImportFileController@index'])->name
 
 Route::post('/upload_file/import', ['uses' => 'Pages\ImportFileController@import_excel'])->name('admin.upload_file.import');
 
+Route::get('/upload_warna_arho', ['uses' => 'Pages\WarnaArhoController@indexHome'])->name('admin.laporan.upload_warna_arho');
+
+Route::post('/upload_warna_arho/update_warna_arho', ['uses' => 'Pages\WarnaArhoController@update_warna_arho'])->name('admin.laporan.upload_warna_arho.update_warna_arho');
+
 Route::get('/visualisasi/umum', ['uses' => 'Pages\VisualisasiDataController@umum'])->name('admin.visualisasi.umum');
 
 Route::post('/visualisasi/umum/fetch_customer_markers', ['uses' => 'Pages\VisualisasiDataController@fetch_customer_markers'])->name('admin.visualisasi.umum.fetch_customer_markers');
@@ -58,6 +62,7 @@ Route::post('/laporan/status_customer/ubah_status_customer', ['uses' => 'Pages\S
 Route::get('/laporan/target_arho', ['uses' => 'Pages\TargetArhoController@index'])->name('admin.laporan.target_arho');
 
 Route::post('/laporan/target_arho/update_target', ['uses' => 'Pages\TargetArhoController@update_target_arho'])->name('admin.laporan.target_arho.update_target');
+
 
 
 

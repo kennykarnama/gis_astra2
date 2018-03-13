@@ -54,6 +54,12 @@
                                 </a>
                             </li>
 
+                             <li>
+                                <a href="{{route('admin.laporan.upload_warna_arho')}}">
+                                    <span>Warna Arho</span>
+                                </a>
+                            </li>
+
                            <!--   <li id="menu-informasi-arho">
                                 <a href="{{route('admin.informasi_arho')}}">
                                     <span>Informasi Arho</span>
