@@ -116,6 +116,18 @@
 
           var icon_path = "{{asset('images/mapmarkers')}}"+"/"+avatar;
 
+
+
+          var pinColor = penugasan.arho.warna_arho;
+
+          pinColor = pinColor.replace("#","");
+
+
+          var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+              new google.maps.Size(21, 34),
+              new google.maps.Point(0,0),
+              new google.maps.Point(10, 34));
+
           var list_kecamatan = penugasan.kecamatan;
 
           for(var j=0; j < list_kecamatan.length; j++){
@@ -146,7 +158,7 @@
                 lat: latitude,
                 lng: longitude,
                 title: nama_arho+" Kecamatan "+kecamatan.nama_kecamatan,
-                icon : icon_path,
+                icon : pinImage,
                 infoWindow: {
                               content: '<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
                                       +"<p style='text-align:center;'> <a target='_blank' href='"+alamat_detail_laporan+"'>Lihat Detail</a>"
