@@ -131,6 +131,12 @@
                                 <a href="{{route('admin.visualisasi.arho')}}">
                                     <span>Arho</span>
                                 </a>
+                            </li>  
+
+                             <li>
+                                <a href="{{route('admin.visualisasi.arho')}}">
+                                    <span>Kecamatan</span>
+                                </a>
                             </li>                          
                         </ul>
                     </li>   
