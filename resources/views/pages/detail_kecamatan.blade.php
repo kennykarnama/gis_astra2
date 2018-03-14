@@ -67,12 +67,24 @@
 
                               $laporan_kecamatan = $kecamatan[0]->LAPORAN;
 
+                              $jumlah_saldo = $laporan_kecamatan['jumlah_saldo'];
+
+                              $target_arho = $laporan_kecamatan['target_arho'];
+
 
                             @endphp
 
                             <tr>
                               <td>{{$arho->nama_lengkap}}</td>
-                              <td>{{$laporan_kecamatan['jumlah_saldo']}}</td>
+
+                              @if($target_arho > $jumlah_saldo)
+                                <td style="background-color:red;">{{$jumlah_saldo}}</td>
+                              @endif
+
+                              @if($jumlah_saldo >= $target_arho)
+                                <td>{{$laporan_kecamatan['jumlah_saldo']}}</td>
+                              @endif
+                              
                               <td>{{$laporan_kecamatan['bal7']}}</td>
                               <td>{{$laporan_kecamatan['persen_bal7']}}</td>
                               <td>{{$laporan_kecamatan['bal30']}}</td>

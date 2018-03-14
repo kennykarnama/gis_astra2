@@ -149,6 +149,8 @@ class VisualisasiKecamatanController extends Controller
 
       		$arho = $penugasan['arho'];
 
+           $target = MyAnalisis::fetch_target_arho_by_nama_lengkap($arho->nama_lengkap);
+
       		for($j = 0; $j < count($list_penugasan_kecamatan); $j++){
       			$nama_kecamatan = $list_penugasan_kecamatan[$j]->nama_kecamatan;
 
@@ -176,7 +178,8 @@ class VisualisasiKecamatanController extends Controller
                 'bal7'=>$jumlah_saldo_bal_7,
                 'persen_bal7'=>$persen_bal7,
                 'bal30'=>$jumlah_saldo_bal_30,
-                'persen_bal30'=>$persen_bal30
+                'persen_bal30'=>$persen_bal30,
+                'target_arho'=>$target[0]->besar_target
                 );
 
             if(MyAnalisis::is_valid_wilayah($jumlah_saldo)){

@@ -28,6 +28,8 @@ class VisualisasiArhoController extends Controller
 
       $arho_query = DB::table('arho')->where('arho.id_arho','=',$arho)->get();
 
+        $target = MyAnalisis::fetch_target_arho_by_nama_lengkap($arho_query[0]->nama_lengkap);
+
       $kecamatan_query = DB::table('kecamatan')->where('kecamatan.id_kecamatan',$kecamatan)->get();
 
        // $kecamatan = $request['kecamatan'];
@@ -66,7 +68,8 @@ class VisualisasiArhoController extends Controller
                 'bal7'=>$jumlah_saldo_bal_7,
                 'persen_bal7'=>$persen_bal7,
                 'bal30'=>$jumlah_saldo_bal_30,
-                'persen_bal30'=>$persen_bal30
+                'persen_bal30'=>$persen_bal30,
+                'target_arho'=>$target[0]->besar_target
                 );
 
             if(MyAnalisis::is_valid_wilayah($jumlah_saldo)){

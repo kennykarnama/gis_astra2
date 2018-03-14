@@ -77,7 +77,20 @@
                                 @endphp
                                <tr>
                                  <td>Kelurahan {{$detail_laporan_i['nama_kelurahan']}}</td>
-                                <td>{{$detail_laporan_i['jumlah_saldo']}}</td>
+
+                                 @php
+                                  $target = $detail_laporan_i['target_arho'];
+                                  $jumlah_saldo = $detail_laporan_i['jumlah_saldo'];
+                                 @endphp
+
+                                 @if($target > $jumlah_saldo)
+                                   <td style="background-color:red;">{{$detail_laporan_i['jumlah_saldo']}}</td>
+                                 @endif
+
+                                 @if($target <= $jumlah_saldo)
+                                   <td>{{$detail_laporan_i['jumlah_saldo']}}</td>
+                                 @endif
+                               
                                 <td>{{$detail_laporan_i['bal7']}}</td>
                                 <td>{{$detail_laporan_i['persen_bal7']}}</td>
                                 <td>{{$detail_laporan_i['bal30']}}</td>
