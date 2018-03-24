@@ -20,6 +20,24 @@ class MyAnalisis {
 
 		return $query;
 	}
+
+	public static function get_jumlah_saldo()
+	{
+		# code...
+		$query = DB::table('report')->whereNotNull('report.ARHO')
+					->sum('report.SALDO2');
+
+		return $query;
+	}
+
+	public static function get_jumlah_customer()
+	{
+		# code...
+		$query = DB::table('report')->whereNotNull('report.ARHO')
+					->count();
+
+		return $query;
+	}
 	public static function fetch_target_arho()
 	{
 		# code...
@@ -305,6 +323,16 @@ class MyAnalisis {
 		# code...
 		$jumlah_saldo = DB::table('report')->where('report.ARHO','=',$arho)
 											->where('report.KELURAHAN','=',$kelurahan)
+											->sum('report.SALDO2');
+
+		return $jumlah_saldo;
+	}
+
+	public static function get_jumlah_bal($bal)
+	{
+		# code...
+		$jumlah_saldo = DB::table('report')->whereNotNull('report.ARHO')
+											->where('report.EOD','<=',$bal)
 											->sum('report.SALDO2');
 
 		return $jumlah_saldo;

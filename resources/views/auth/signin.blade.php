@@ -6,7 +6,7 @@
       <img class="responsive-img" style="width: 100px;" src="{{asset('images/astra_2.png')}}" />
       <div class="section"></div>
 
-      <h5 class="indigo-text">Astra Credit Companies - Geography Information System</h5>
+      <h5 class="indigo-text">Astra Credit Companies - Geographic Information System</h5>
       <div class="section"></div>
 
       <div class="container">

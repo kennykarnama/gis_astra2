@@ -83,7 +83,7 @@
 
 </head>
 
-<body class="theme-red">
+<body class="theme-indigo">
    
     
     <!-- Overlay For Sidebars -->

@@ -84,7 +84,7 @@
                                  @endphp
 
                                  @if($target > $jumlah_saldo)
-                                   <td style="background-color:red;">{{$detail_laporan_i['jumlah_saldo']}}</td>
+                                   <td style="color:red;">{{$detail_laporan_i['jumlah_saldo']}}</td>
                                  @endif
 
                                  @if($target <= $jumlah_saldo)

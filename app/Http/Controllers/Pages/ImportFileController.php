@@ -43,6 +43,8 @@ class ImportFileController extends Controller
 
             $path = public_path()."/file_laporan/".$file_name;
 
+             event(new ImportLaporanEvent("Data sedang diimport"));
+
             dispatch(new ImportToDbJob($path));
 
         

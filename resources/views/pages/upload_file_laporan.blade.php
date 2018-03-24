@@ -36,6 +36,14 @@
                                     <input name="file" id="file" type="file" />
                                 </div>
                             </form>
+
+                            <div class="progress" id="progress-import-file" style="display:none;">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: 100%">
+                                    <span class="sr-only">100% Complete (danger)</span>
+                                    <b>Sedang Import File</b>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,8 +73,21 @@
     channel.bind('App\\Events\\ImportLaporanEvent', addMessage);
 
     function addMessage(data) {
-        swal("Good job!", data.message, "success");
+
+        if(data.message == "Data sedang diimport"){
+            $('#progress-import-file').show();
+        }
+
+        else{
+
+            $('#progress-import-file').hide();
+
+            swal("Good job!", data.message, "success"); 
+        }
+       
       }
+
+
 
     </script>
    @endpush

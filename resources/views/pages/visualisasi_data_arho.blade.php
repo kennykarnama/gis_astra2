@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Visualisasi Arho
+                                Visualisasi ARHO
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -169,9 +169,9 @@
                                       +"<p>% Bal 30"+kecamatan.LAPORAN.persen_bal30+"</p>"
                                       +"<p> Target Arho "+kecamatan.TARGET +"</p>"
                             },
-                        mouseover: function(){
-                (this.infoWindow).open(this.map, this);
-            },
+            //             mouseover: function(){
+            //     (this.infoWindow).open(this.map, this);
+            // },
             // mouseout: function(){
             //     this.infoWindow.close();
             // },

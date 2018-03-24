@@ -5,7 +5,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="{{asset('images/user.png')}}" width="48" height="48" alt="User" />
+                    <img class="center-block" src="{{asset('images/astra_2.png')}}" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->username}}</div>
@@ -50,13 +50,13 @@
                            
                             <li>
                                 <a href="{{route('admin.laporan.target_arho')}}">
-                                    <span>Target Arho</span>
+                                    <span>Target ARHO</span>
                                 </a>
                             </li>
 
                              <li>
                                 <a href="{{route('admin.laporan.upload_warna_arho')}}">
-                                    <span>Warna Arho</span>
+                                    <span>Warna ARHO</span>
                                 </a>
                             </li>
 
@@ -129,13 +129,13 @@
 
                             <li>
                                 <a href="{{route('admin.visualisasi.arho')}}">
-                                    <span>Arho</span>
+                                    <span>ARHO</span>
                                 </a>
                             </li>  
 
                              <li>
                                 <a href="{{route('admin.visualisasi.kecamatan')}}">
-                                    <span>Kecamatan</span>
+                                    <span>KECAMATAN</span>
                                 </a>
                             </li>                          
                         </ul>

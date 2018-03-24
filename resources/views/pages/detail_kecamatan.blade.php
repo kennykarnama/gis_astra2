@@ -78,7 +78,7 @@
                               <td>{{$arho->nama_lengkap}}</td>
 
                               @if($target_arho > $jumlah_saldo)
-                                <td style="background-color:red;">{{$jumlah_saldo}}</td>
+                                <td style="color:red;">{{$jumlah_saldo}}</td>
                               @endif
 
                               @if($jumlah_saldo >= $target_arho)

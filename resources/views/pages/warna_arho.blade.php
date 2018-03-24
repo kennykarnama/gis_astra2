@@ -5,6 +5,27 @@
 <!-- Colorpicker Css -->
     <link href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css')}}" rel="stylesheet" />
 <link href="{{asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
+ <style type="text/css">
+.foo {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.blue {
+  background: #13b4ff;
+}
+
+.purple {
+  background: #ab3fdd;
+}
+
+.wine {
+  background: #ae163e;
+}
+ </style>
  <section class="content">
         <div class="container-fluid">
             <!-- Google Maps -->
@@ -34,7 +55,7 @@
                         <div class="body">
 
                         		<div class="table-responsive">
-                        		 <table class="table table-bordered table-striped table-hover" id="tabel_warna_arho">
+                        		 <table class="table table-bordered table-striped table-hover" id="tabel_warna_arho" style="text-align: center;">
                         		 	<thead>
                         		 		<th style="text-align:center;">No</th>
                         		 		<th style="text-align:center;">Nama</th>
@@ -52,7 +73,9 @@
                         		 			<tr>
                         		 				<td style="text-align:center;">{{$no++}}</td>
                         		 				<td style="text-align:center;">{{$arho->nama_lengkap}}</td>
-                        		 				<td style="text-align:center;">{{$arho->warna_arho}}</td>
+                        		 				<td style="text-align:center;">
+                                                    <div class="foo" style="background:{{$arho->warna_arho}}"></div>
+                                                </td>
                         		 				<td style="text-align-center">
                         		 					<button class="btn btn-primary btn-update-warna center-block"
                         		 					data-idarho={{$arho->id_arho}}
