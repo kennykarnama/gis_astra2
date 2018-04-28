@@ -42,13 +42,20 @@
                         </a>
 
                         <ul class="ml-menu">
-                            <li id="menu-informasi-arho">
+
+                         <li >
+                                <a href="{{route('admin.informasi_arho')}}">
+                                    <span>Arho</span>
+                                </a>
+                            </li>
+
+                            <li>
                                 <a href="{{route('admin.informasi_kecamatan')}}">
                                     <span>Kecamatan</span>
                                 </a>
                             </li>
 
-                             <li id="menu-informasi-arho">
+                             <li>
                                 <a href="{{route('admin.informasi_kelurahan')}}">
                                     <span>Kelurahan</span>
                                 </a>

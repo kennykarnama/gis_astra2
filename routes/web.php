@@ -26,6 +26,17 @@ Route::get('/', ['uses' => 'Pages\InterfaceController@test_dashboard'])->name('a
 
 Route::get('/informasi_arho', ['uses' => 'Pages\InformasiArhoController@index'])->name('admin.informasi_arho');
 
+Route::post('/informasi_arho/list_arho', ['uses' => 'Pages\InformasiArhoController@all_arho'])->name('admin.informasi_arho.list_arho.all_arho');
+
+Route::post('/informasi_arho/simpan', ['uses' => 'Pages\InformasiArhoController@simpan_arho'])->name('admin.informasi_arho.simpan');
+
+Route::post('/informasi_arho/hapus', ['uses' => 'Pages\InformasiArhoController@hapus_arho'])->name('admin.informasi_arho.hapus');
+
+Route::post('/informasi_arho/fetch', ['uses' => 'Pages\InformasiArhoController@fetch_arho_by_id'])->name('admin.informasi_arho.fetch');
+
+Route::post('/informasi_arho/update', ['uses' => 'Pages\InformasiArhoController@update_arho'])->name('admin.informasi_arho.update');
+
+
 Route::get('/informasi_kecamatan', ['uses' => 'Pages\InformasiKecamatanController@index'])->name('admin.informasi_kecamatan');
 
 Route::post('/informasi_kecamatan/list_kecamatan', ['uses' => 'Pages\InformasiKecamatanController@all_kecamatan'])->name('admin.informasi_kecamatan.list_kecamatan.all_kecamatan');
