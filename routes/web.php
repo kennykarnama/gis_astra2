@@ -66,6 +66,12 @@ Route::get('/upload_file', ['uses' => 'Pages\ImportFileController@index'])->name
 
 Route::post('/upload_file/import', ['uses' => 'Pages\ImportFileController@import_excel'])->name('admin.upload_file.import');
 
+Route::get('/import_file_handling_arho', ['uses' => 'Pages\ImportFileHandlingArhoController@index'])->name('admin.import_file_handling_arho');
+
+Route::post('/import_file_handling_arho/import', ['uses' => 'Pages\ImportFileHandlingArhoController@import_excel'])->name('admin.import_file_handling_arho.import');
+
+
+
 Route::get('/upload_warna_arho', ['uses' => 'Pages\WarnaArhoController@indexHome'])->name('admin.laporan.upload_warna_arho');
 
 Route::post('/upload_warna_arho/update_warna_arho', ['uses' => 'Pages\WarnaArhoController@update_warna_arho'])->name('admin.laporan.upload_warna_arho.update_warna_arho');
