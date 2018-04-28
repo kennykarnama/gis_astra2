@@ -28,7 +28,28 @@ Route::get('/informasi_arho', ['uses' => 'Pages\InformasiArhoController@index'])
 
 Route::get('/informasi_kecamatan', ['uses' => 'Pages\InformasiKecamatanController@index'])->name('admin.informasi_kecamatan');
 
+Route::post('/informasi_kecamatan/list_kecamatan', ['uses' => 'Pages\InformasiKecamatanController@all_kecamatan'])->name('admin.informasi_kecamatan.list_kecamatan.all_kecamatan');
+
+Route::post('/informasi_kecamatan/simpan', ['uses' => 'Pages\InformasiKecamatanController@simpan_kecamatan'])->name('admin.informasi_kecamatan.simpan');
+
+Route::post('/informasi_kecamatan/hapus', ['uses' => 'Pages\InformasiKecamatanController@hapus_kecamatan'])->name('admin.informasi_kecamatan.hapus');
+
+Route::post('/informasi_kecamatan/fetch', ['uses' => 'Pages\InformasiKecamatanController@fetch_kecamatan_by_id'])->name('admin.informasi_kecamatan.fetch');
+
+Route::post('/informasi_kecamatan/update', ['uses' => 'Pages\InformasiKecamatanController@update_kecamatan'])->name('admin.informasi_kecamatan.update');
+
 Route::get('/informasi_kelurahan', ['uses' => 'Pages\InformasiKelurahanController@index'])->name('admin.informasi_kelurahan');
+
+Route::post('/informasi_kelurahan/list_kelurahan', ['uses' => 'Pages\InformasiKelurahanController@all_kelurahan'])->name('admin.informasi_kelurahan.list_kelurahan');
+
+Route::post('/informasi_kelurahan/simpan', ['uses' => 'Pages\InformasiKelurahanController@simpan_kelurahan'])->name('admin.informasi_kelurahan.simpan');
+
+Route::post('/informasi_kelurahan/hapus', ['uses' => 'Pages\InformasiKelurahanController@hapus_kelurahan'])->name('admin.informasi_kelurahan.hapus');
+
+Route::post('/informasi_kelurahan/fetch', ['uses' => 'Pages\InformasiKelurahanController@fetch_kelurahan_by_id'])->name('admin.informasi_kelurahan.fetch');
+
+Route::post('/informasi_kelurahan/update', ['uses' => 'Pages\InformasiKelurahanController@update_kelurahan'])->name('admin.informasi_kelurahan.update');
+
 
 Route::get('/upload_file', ['uses' => 'Pages\ImportFileController@index'])->name('admin.upload_file');
 

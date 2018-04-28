@@ -6,7 +6,38 @@
     <!-- Dropzone Css -->
     <link href="{{asset('plugins/dropzone/dropzone.css')}}" rel="stylesheet">
      <!-- Bootstrap Select Css -->
-    <link href="../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="{{asset('plugins/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet" />
+
+    <!-- Sweetalert Css -->
+    <link href="{{asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
+
+    <style type="text/css">
+        
+        .btn-group button {
+    background-color: #4CAF50; /* Green background */
+    border: 1px solid green; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #3e8e41;
+}
+    </style>
 
   <section class="content">
         <div class="container-fluid">
@@ -27,14 +58,17 @@
                                         <i class="material-icons">more_vert</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a id="btn-tambah-arho" href="#">Tambah Kecamatan</a></li>
+                                        <li><a id="btn-tambah-arho" href="#" data-toggle="modal" data-target="#modal-tambah-kecamatan">Tambah Kecamatan</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="body">
+
+                       
+
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                <table class="table table-bordered table-striped table-hover" id="tabel_kecamatan">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -48,23 +82,7 @@
                                     
                                     <tbody>
 
-                                        <tr>
-                                            <td style="vertical-align:middle;text-align:center;">1</td>
-                                            <td style="vertical-align:middle;text-align:center;";>Asemrowo</td>
-                                            <td style="text-align:center;vertical-align:middle">
-                                                2
-                                            </td>
-
-                                            <td style="text-align:center;vertical-align:middle">
-                                                3
-                                            </td>
-                                            <td style="vertical-align:middle;text-align:center;">
-                                                <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-primary waves-effect">Edit</button>
-                                                    <button type="button" class="btn btn-danger waves-effect">Delete</button>
-                                                </div>
-                                            </td>   
-                                        </tr>
+                                       
                                       
                                     </tbody>
                                 </table>
@@ -79,42 +97,107 @@
             <!-- #END# Exportable Table -->
         </div>
 
-         <!-- Default Size -->
-            <div class="modal fade" id="modal-tambah-arho" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="defaultModalLabel">Tambah Arho</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-sm-12">
+        <!-- Modal -->
+        <div id="modal-tambah-kecamatan" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Tambah Kecamatan</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="row clearfix">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" placeholder="Username" />
+                                            <input id="nama_kecamatan" type="text" class="form-control" placeholder="Nama Kecamatan" />
                                         </div>
                                     </div>
-                                    
-                                      <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
-                                            <div class="dz-message">
-                                                <div class="drag-icon-cph">
-                                                    <i class="material-icons">touch_app</i>
-                                                </div>
-                                                <h3>Drop files here or click to upload.</h3>
-                                                <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
-                                            </div>
-                                            <div class="fallback">
-                                                <input name="file" type="file" multiple />
-                                            </div>
-                                    </form>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="luas_wilayah" type="number" class="form-control" placeholder="Luas Wilayah (km2)" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="lat" type="number" class="form-control" placeholder="Latitude" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="lng" type="number" class="form-control" placeholder="Longitude" />
+                                        </div>
+                                    </div>
                                 </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
                 </div>
+
+                 
+                
+              </div>
+              <div class="modal-footer">
+               <button type="button" class="btn btn-success" id="btn-simpan-kecamatan" >Simpan</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              </div>
             </div>
+
+          </div>
+        </div>
+
+         <!-- Modal -->
+        <div id="modal-edit-kecamatan" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Kecamatan</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+
+                                    <input type="hidden" id="id_kecamatan">
+                                        <div class="form-line">
+                                            <input id="edit_nama_kecamatan" type="text" class="form-control" placeholder="Nama Kecamatan" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="edit_luas_wilayah" type="number" class="form-control" placeholder="Luas Wilayah (km2)" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="edit_lat" type="number" class="form-control" placeholder="Latitude" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="edit_lng" type="number" class="form-control" placeholder="Longitude" />
+                                        </div>
+                                    </div>
+                                </div>
+                </div>
+
+                 
+                
+              </div>
+              <div class="modal-footer">
+               <button type="button" class="btn btn-success" id="btn-update-kecamatan" >Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        
     </section>
 @push('scripts')
 <!-- Jquery DataTable Plugin Js -->
@@ -127,23 +210,317 @@
     <script src="{{asset('plugins/jquery-datatable/extensions/export/vfs_fonts.js')}}"></script>
     <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.html5.min.js')}}"></script>
     <script src="{{asset('plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script>
+     <!-- SweetAlert Plugin Js -->
+    <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
+
       <!-- Dropzone Plugin Js -->
-    <script src="../../plugins/dropzone/dropzone.js"></script>
+    <script src="{{asset('plugins/dropzone/dropzone.js')}}"></script>
 
     <script type="text/javascript">
-        $(document).ready(function  () {
-            // body...
-                $('.js-basic-example').DataTable({
-            responsive: true
-            });
 
-            $('#btn-tambah-arho').click(function  () {
-                // body...
+    var tabel_kecamatan;
 
-                $('#modal-tambah-arho').modal('show');
+    function hapus_kecamatan(id_kecamatan) {
+        // body...
+        
 
-            });
+         swal({
+        title: "Konfirmasi Hapus Kecamatan",
+        text: "Apakah anda ingin menghapus Kecamatan ?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Hapus",
+        closeOnConfirm: false
+    }, function (isConfirm) {
+        if (!isConfirm) return;
+
+        $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+        
+
+        $.ajax({
+            url: "{{route('admin.informasi_kecamatan.hapus')}}",
+            type: "POST",
+            data: {
+                      "id_kecamatan":id_kecamatan
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+
+              
+
+                if(data==1){
+                    swal("Done!", "Kecamatan berhasil dihapus", "success");
+                }
+
+                else{
+                    swal("Failed!", "Kecamatan gagal dihapus", "error");
+                }
+
+               $('#tabel_kecamatan').DataTable().ajax.reload();
+
+                $('#modal-tambah-kecamatan').modal("hide");
+                
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                swal("Failed!", "Kecamatan gagal  dihapus", "error");
+            }
         });
+    });
+
+    }
+
+    function simpan_kecamatan() {
+        // body...
+
+        var nama_kecamatan = $('#nama_kecamatan').val();
+
+        var luas_wilayah = $("#luas_wilayah").val();
+
+        var lat = $('#lat').val();
+
+        var lng = $('#lng').val();
+
+
+
+        swal({
+        title: "Konfirmasi Simpan Kecamatan",
+        text: "Apakah anda ingin menyimpan Kecamatan ?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Simpan",
+        closeOnConfirm: false
+    }, function (isConfirm) {
+        if (!isConfirm) return;
+
+        $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+        
+
+        $.ajax({
+            url: "{{route('admin.informasi_kecamatan.simpan')}}",
+            type: "POST",
+            data: {
+                       "nama_kecamatan":nama_kecamatan,
+                       "luas_wilayah":luas_wilayah,
+                       "lat":lat,
+                       "lng":lng
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+
+              
+
+                if(data==1){
+                    swal("Done!", "Kecamatan berhasil disimpan", "success");
+                }
+
+                else{
+                    swal("Failed!", "Kecamatan gagal disimpan", "error");
+                }
+
+               $('#tabel_kecamatan').DataTable().ajax.reload();
+
+                $('#modal-tambah-kecamatan').modal("hide");
+                
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                swal("Failed!", "Kecamatan gagal  disimpan", "error");
+            }
+        });
+    });
+
+    }
+
+function update_kecamatan() {
+        // body...
+
+        var id_kecamatan = $('#id_kecamatan').val();
+
+        var nama_kecamatan = $('#edit_nama_kecamatan').val();
+
+        var luas_wilayah = $("#edit_luas_wilayah").val();
+
+        var lat = $('#edit_lat').val();
+
+        var lng = $('#edit_lng').val();
+
+
+
+        swal({
+        title: "Konfirmasi Update Kecamatan",
+        text: "Apakah anda ingin mengupdate Kecamatan ?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Update",
+        closeOnConfirm: false
+    }, function (isConfirm) {
+        if (!isConfirm) return;
+
+        $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+        
+
+        $.ajax({
+            url: "{{route('admin.informasi_kecamatan.update')}}",
+            type: "POST",
+            data: {
+                       "id_kecamatan":id_kecamatan,
+                       "nama_kecamatan":nama_kecamatan,
+                       "luas_wilayah":luas_wilayah,
+                       "lat":lat,
+                       "lng":lng
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+
+              
+
+                if(data==1){
+                    swal("Done!", "Kecamatan berhasil diupdate", "success");
+                }
+
+                else{
+                    swal("Failed!", "Kecamatan gagal diupdate", "error");
+                }
+
+               $('#tabel_kecamatan').DataTable().ajax.reload();
+
+                $('#modal-edit-kecamatan').modal("hide");
+                
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                swal("Failed!", "Kecamatan gagal  disimpan", "error");
+            }
+        });
+    });
+
+    }
+
+
+
+function fetch_kecamatan_by(id_kecamatan) {
+        // body...
+
+          $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+        
+
+        $.ajax({
+            url: "{{route('admin.informasi_kecamatan.fetch')}}",
+            type: "POST",
+            data: {
+                       "id_kecamatan":id_kecamatan
+            },
+            dataType: "json",
+            success: function (kecamatan) {
+                
+                //console.log(kecamatan);
+
+                $('#edit_nama_kecamatan').val(kecamatan.nama_kecamatan);
+
+                $('#id_kecamatan').val(id_kecamatan);
+
+                $("#edit_nama_kecamatan").val(kecamatan.nama_kecamatan);
+
+                $('#edit_luas_wilayah').val(kecamatan.luas_wilayah_km2);
+
+                $('#edit_lat').val(kecamatan.lat);
+
+                $('#edit_lng').val(kecamatan.lng);
+
+                $('#modal-edit-kecamatan').modal('show');
+
+              
+
+                
+            },
+           
+        });
+    }
+
+$(document).ready(function  () {
+            // body...
+                
+
+       tabel_kecamatan = $('#tabel_kecamatan').DataTable({
+                        'scrollX':true,
+                         "processing": true,
+                        "serverSide": true,
+                        "order": [],
+                        "columnDefs": [
+                { "orderable": false, "targets": [0,5] }
+              ] 
+                        ,
+                    "ajax":{
+                                 "url": "{{route('admin.informasi_kecamatan.list_kecamatan.all_kecamatan')}}",
+                                 "dataType": "json",
+                                 "type": "POST",
+                                 "data":{ _token: "{{csrf_token()}}"}
+                               },
+                        "columns": [
+                            { "data": "no"},
+                            { "data": "nama_kecamatan" },
+                            { "data": "luas_wilayah" },
+                            { "data": "lat" },
+                            { "data": "lng" },
+                            {"data":"actions"}
+                        ]
+
+             });
+
+        $('#tabel_kecamatan tbody').on('click','.btn-hapus-kecamatan',function () {
+            // body...
+            var id_kecamatan = $(this).data('idkecamatan');
+
+            // alert(id_kecamatan);
+            hapus_kecamatan(id_kecamatan);
+        });
+
+        $('#tabel_kecamatan tbody').on('click','.btn-edit-kecamatan',function () {
+            // body...
+            var id_kecamatan = $(this).data('idkecamatan');
+
+            fetch_kecamatan_by(id_kecamatan);
+
+        });
+
+       $('#btn-simpan-kecamatan').click(function () {
+           // body...
+           simpan_kecamatan();
+       });
+
+       $('#btn-update-kecamatan').click(function () {
+           // body...
+           update_kecamatan();
+       });
+
+
+
+           
+});
     </script>
 @endpush
  @stop

@@ -34,6 +34,32 @@
                         </a>
                     </li>
 
+
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">layers</i>
+                            <span>Master Data</span>
+                        </a>
+
+                        <ul class="ml-menu">
+                            <li id="menu-informasi-arho">
+                                <a href="{{route('admin.informasi_kecamatan')}}">
+                                    <span>Kecamatan</span>
+                                </a>
+                            </li>
+
+                             <li id="menu-informasi-arho">
+                                <a href="{{route('admin.informasi_kelurahan')}}">
+                                    <span>Kelurahan</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+
+
+                    </li>
+
                     <li id="menu-upload-file">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">cloud</i>
@@ -71,23 +97,7 @@
 
                     </li>
 
-                    
-                    <!-- <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">layers</i>
-                            <span>Master Data</span>
-                        </a>
-
-                        <ul class="ml-menu">
-                            <li id="menu-informasi-arho">
-                                <a href="{{route('admin.informasi_arho')}}">
-                                    <span>Informasi Arho</span>
-                                </a>
-                            </li>
-
-
-                        </ul>
-                    </li> -->
+                  
 
                   <!--    <li>
                         <a href="javascript:void(0);" class="menu-toggle">
