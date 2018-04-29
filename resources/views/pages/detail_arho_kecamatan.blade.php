@@ -51,7 +51,7 @@
                           <th style="text-align:center; vertical-align:middle;" rowspan="2">{{$kecamatan[0]->nama_kecamatan}}</th>
                           <th style="text-align:center; vertical-align:middle;" rowspan="2">SALDO</th>
                           <th style="text-align:center; vertical-align:middle;" colspan="2" scope="colgroup">Bal 7</th>
-                          <th style="text-align:center; vertical-align:middle;" colspan="2" scope="colgroup">Bal 30</th>
+                          <th style="text-align:center; vertical-align:middle;" colspan="2" scope="colgroup">Target Perusahaan</th>
                          
                           </tr>
 
@@ -59,7 +59,7 @@
                             <th scope="col" style="text-align:center; vertical-align:middle;">Rp.</th>
                             <th scope="col" style="text-align:center; vertical-align:middle;">%.</th>
                             <th scope="col" style="text-align:center; vertical-align:middle;">Rp.</th>
-                            <th scope="col" style="text-align:center; vertical-align:middle;">%</th>
+                          
                             
                           </tr>
                         </thead>
@@ -93,8 +93,8 @@
                                
                                 <td>{{$detail_laporan_i['bal7']}}</td>
                                 <td>{{$detail_laporan_i['persen_bal7']}}</td>
-                                <td>{{$detail_laporan_i['bal30']}}</td>
-                                <td>{{$detail_laporan_i['persen_bal30']}}</td>
+                                <td>{{$detail_laporan_i['target_arho']}}</td>
+                               
                                 
                               </tr>
 

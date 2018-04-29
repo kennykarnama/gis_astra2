@@ -87,6 +87,7 @@ Route::post('/visualisasi/umum/fetch_customer_markers', ['uses' => 'Pages\Visual
 Route::post('/visualisasi/umum/fetch_arho_markers', ['uses' => 'Pages\VisualisasiDataController@fetch_arho_markers'])->name('admin.visualisasi.umum.fetch_arho_markers');
 
 Route::get('/visualisasi/arho', ['uses' => 'Pages\VisualisasiArhoController@indexHome'])->name('admin.visualisasi.arho');
+Route::get('/visualisasi/arho/hitung_laporan', ['uses' => 'Pages\VisualisasiArhoController@hitung_laporan_arho'])->name('admin.visualisasi.arho.hitung_laporan');
 
 Route::post('/visualisasi/arho/get_laporan_arho', ['uses' => 'Pages\VisualisasiArhoController@get_laporan_arho'])->name('admin.visualisasi.arho.get_laporan_arho');
 
