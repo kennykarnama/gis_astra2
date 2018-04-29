@@ -43,7 +43,7 @@ class ImportDataCustomerController extends Controller
 
             $path = public_path()."/data_customer/".$file_name;
 
-
+             DB::table('data_customer')->truncate();
 
            
 
