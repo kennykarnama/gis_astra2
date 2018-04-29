@@ -8,9 +8,10 @@ use Auth;
 use DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Jobs\ImportFileHandlingArhoJob;
+use App\Jobs\ImportDataCustomerJob;
 use App\Events\ImportLaporanEvent;
 use Illuminate\Support\Facades\Input;
+use Excel;
 
 class ImportDataCustomerController extends Controller
 {
@@ -35,16 +36,20 @@ class ImportDataCustomerController extends Controller
 
         $file_name = $file->getClientOriginalName();
 
-        $upload_success =  Input::file('file')->move('file_handling_arho',$file_name);
+        $upload_success =  Input::file('file')->move('data_customer',$file_name);
 
         if($upload_success){
            
 
-            $path = public_path()."/file_handling_arho/".$file_name;
+            $path = public_path()."/data_customer/".$file_name;
 
-             event(new ImportLaporanEvent("Data sedang diimport"));
 
-            dispatch(new ImportFileHandlingArhoJob($path));
+
+           
+
+              event(new ImportLaporanEvent("Data sedang diimport"));
+
+             dispatch(new ImportDataCustomerJob($path));
 
         
           
