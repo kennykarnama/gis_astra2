@@ -152,7 +152,11 @@
   basicFormatEvents: true
 });
 
+
+
         var iw = new google.maps.InfoWindow();
+
+        function iwClose() { iw.close(); }
 
          var white = { r: 255, g: 255, b: 255 };
 
@@ -205,7 +209,8 @@
                                       +"<p>% Bal 7 "+kecamatan.persen_bal7+"</p>"
                                       +"<p> Target Arho "+penugasan.target_arho[0].besar_target +"</p>",
              
-              rgb:{r:warnanya[0],g:warnanya[1],b:warnanya[2]}
+              rgb:{r:warnanya[0],g:warnanya[1],b:warnanya[2]},
+              pin_color:pinColor
 
             };
 
@@ -265,24 +270,34 @@
         for (var i = 0, len = window.mapData.length; i < len; i ++) {
         (function() {  // make a closure over the marker and marker data
           var markerData = window.mapData[i];  // e.g. { lat: 50.123, lng: 0.123, text: 'XYZ' }
-          var marker = new google.maps.Marker({ position: markerData,draggable: true,
+          var marker = new google.maps.Marker({ position: markerData,draggable:false,
           optimized: ! isIE   });  // markerData works here as a LatLngLiteral
+          //google.maps.event.addListener(marker, 'click', iwClose);
           google.maps.event.addListener(marker, 'spider_format', function(status) {
+
+            //console.log("meeng "+pinColor);
+
           marker.setIcon({
-            url: iconWithColours(markerData.rgb, white,
-              status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? white : null),
+            url: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + markerData.pin_color,
             scaledSize: new google.maps.Size(23, 32)  // makes SVG icons work in IE
           });
         });
-          google.maps.event.addListener(marker, 'spider_click', function(e) {  // 'spider_click', not plain 'click'
+
+
+
+          google.maps.event.addListener(marker, 'click', function(e) {  // 'spider_click', not plain 'click'
             iw.setContent(markerData.text);
             iw.open(visualisasi_arho, marker);
-          });
+          })
+
+          ;
           oms.addMarker(marker);  // adds the marker to the spiderfier _and_ the map
         })();
       }
       window.map = visualisasi_arho;  // for debugging/exploratory use in console
       window.oms = oms;  // ditto
+
+      visualisasi_arho.setOptions({draggable:true});
     
 
     };
