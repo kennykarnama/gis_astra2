@@ -70,6 +70,10 @@ Route::get('/import_file_handling_arho', ['uses' => 'Pages\ImportFileHandlingArh
 
 Route::post('/import_file_handling_arho/import', ['uses' => 'Pages\ImportFileHandlingArhoController@import_excel'])->name('admin.import_file_handling_arho.import');
 
+Route::get('/import_data_customer', ['uses' => 'Pages\ImportDataCustomerController@index'])->name('admin.import_data_customer');
+
+Route::post('/import_data_customer/import', ['uses' => 'Pages\ImportDataCustomerController@import_excel'])->name('admin.import_data_customer.import');
+
 
 
 Route::get('/upload_warna_arho', ['uses' => 'Pages\WarnaArhoController@indexHome'])->name('admin.laporan.upload_warna_arho');

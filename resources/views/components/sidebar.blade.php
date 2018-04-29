@@ -86,6 +86,12 @@
                                     <span>File Handling Arho</span>
                                 </a>
                             </li>
+
+                             <li>
+                                <a href="{{route('admin.import_data_customer')}}">
+                                    <span>Data Customer</span>
+                                </a>
+                            </li>
                            
                             <li>
                                 <a href="{{route('admin.laporan.target_arho')}}">
