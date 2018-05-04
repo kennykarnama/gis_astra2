@@ -47,29 +47,7 @@ class InterfaceController extends Controller
         //dd($summary_arho_dashboard);
     }
 
-    public function test_dashboard()
-    {
-    	# code...
-        $jumlah_saldo = MyAnalisis::get_jumlah_saldo();
-
-        $jumlah_customer = MyAnalisis::get_jumlah_customer();
-
-        $jumlah_bal7 = MyAnalisis::get_jumlah_bal(7);
-
-        $summary_arho = $this->summary_arho();
-
-
-        //dd($summary_arho);
-        //dd($jumlah_bal7);
-    	
-        return view('pages.dashboard',
-            ['jumlah_saldo'=>$jumlah_saldo,"jumlah_customer"=>$jumlah_customer,
-            "jumlah_bal7"=>$jumlah_bal7,
-            "summary_arho"=>$summary_arho
-
-            ]);
-    }
-
+ 
     public function summary_arho()
     {
         # code...
