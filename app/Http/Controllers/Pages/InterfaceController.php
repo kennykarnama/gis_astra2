@@ -43,7 +43,8 @@ class InterfaceController extends Controller
             "jumlah_customer"=>$jumlah_customer,
             "jumlah_saldo_handling"=>$jumlah_saldo_handling
             ]);
-        return $summary_arho_dashboard;
+
+        //return $summary_arho_dashboard;
         //dd($summary_arho_dashboard);
     }
 

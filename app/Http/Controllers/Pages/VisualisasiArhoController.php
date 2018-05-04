@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Pages;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\AnalisisData\MyAnalisis;
+use App\AnalisisData\AnalisisLaporan;
 use DB;
+use App\Models\Kecamatan;
+use App\Models\Arho;
 
 /**
 * 
@@ -35,71 +38,113 @@ class VisualisasiArhoController extends Controller
     	return view('pages.visualisasi_data_arho',[]);
     }
 
-
-
-    public function detail_laporan($arho,$kecamatan)
+    public function detail_laporan($id_arho,$id_kecamatan)
     {
       # code...
 
-      $arho_query = DB::table('arho')->where('arho.id_arho','=',$arho)->get();
+      $analisis_laporan = new AnalisisLaporan('test');
 
-        $target = MyAnalisis::fetch_target_arho_by_nama_lengkap($arho_query[0]->nama_lengkap);
+      $arho = Arho::find($id_arho);
 
-      $kecamatan_query = DB::table('kecamatan')->where('kecamatan.id_kecamatan',$kecamatan)->get();
+      $query_target_arho = DB::table('target_arho')
+                          ->where('target_arho.id_arho','=',$arho->id_arho)
+                          ->get();
 
-       // $kecamatan = $request['kecamatan'];
+      $kecamatan = Kecamatan::find($id_kecamatan);
 
-       //  $arho = $request['arho'];
-        
-        $list_kelurahan = MyAnalisis::fetch_kelurahan($kecamatan_query[0]->nama_kecamatan);
+      $total_saldo_handling =  $analisis_laporan->hitung_saldo_handling_arho_kecamatan($arho->nama_lengkap,$kecamatan->nama_kecamatan);
 
-        //dd($list_kelurahan);
+      $laporan_osa_arho_kecamatan = $analisis_laporan->hitung_jumlah_osa_arho_kecamatan($arho->nama_lengkap,$kecamatan);
 
-        $detail_laporan = array();
+      //dd($laporan_osa_arho_kecamatan);
 
-        foreach ($list_kelurahan as $kelurahan) {
-            # code...
+      $target_actual = 0.0;
 
-            $jumlah_saldo = MyAnalisis::hitung_jumlah_saldo_kelurahan($arho_query[0]->nama_lengkap,$kelurahan->KELURAHAN);
+      if($total_saldo_handling > 0 && $laporan_osa_arho_kecamatan[0]->total_osa > 0){
+        $target_actual = ($total_saldo_handling) / $laporan_osa_arho_kecamatan[0]->total_osa;
+      }
 
+      $status_target = '';
 
-            $jumlah_saldo_bal_7 = MyAnalisis::hitung_jumlah_saldo_bal_kelurahan($arho_query[0]->nama_lengkap,$kelurahan->KELURAHAN,7);
+      if($target_actual > $query_target_arho[0]->besar_target){
+        $status_target = '#FF0000';
+      }
 
-            $jumlah_saldo_bal_30 = MyAnalisis::hitung_jumlah_saldo_bal_kelurahan($arho_query[0]->nama_lengkap,$kelurahan->KELURAHAN,30);
-
-            $persen_bal7 = 0;
-
-            $persen_bal30 = 0;
-
-            if($jumlah_saldo > 0){
-                    $persen_bal7 = ($jumlah_saldo - $jumlah_saldo_bal_7) / ($jumlah_saldo);
-
-                        $persen_bal30 = ($jumlah_saldo - $jumlah_saldo_bal_30) / ($jumlah_saldo);
-            }
-
-            $tmp = array(
-                'nama_kelurahan'=>$kelurahan->KELURAHAN,
-                'jumlah_saldo'=>$jumlah_saldo,
-                'bal7'=>$jumlah_saldo_bal_7,
-                'persen_bal7'=>$persen_bal7,
-                'bal30'=>$jumlah_saldo_bal_30,
-                'persen_bal30'=>$persen_bal30,
-                'target_arho'=>$target[0]->besar_target
-                );
-
-            if(MyAnalisis::is_valid_wilayah($jumlah_saldo)){
-               array_push($detail_laporan, $tmp);
-            }
-
-        }
-
-        //dd($detail_laporan);
-
-
-      return view('pages.detail_arho_kecamatan',['arho'=>$arho_query,"kecamatan"=>$kecamatan_query,
-        'detail_laporan'=>$detail_laporan
+       return view('pages.detail_arho_kecamatan',['arho'=>$arho,"kecamatan"=>$kecamatan,
+          'total_saldo_handling'=>$total_saldo_handling,
+          'laporan_osa_arho_kecamatan'=>$laporan_osa_arho_kecamatan[0],
+          'target_arho'=>$query_target_arho[0],
+          'target_actual'=>$target_actual*100,
+          'status_target'=>$status_target 
         ]);
+
     }
+
+
+
+    // public function detail_laporan($arho,$kecamatan)
+    // {
+    //   # code...
+
+    //   $arho_query = DB::table('arho')->where('arho.id_arho','=',$arho)->get();
+
+    //     $target = MyAnalisis::fetch_target_arho_by_nama_lengkap($arho_query[0]->nama_lengkap);
+
+    //   $kecamatan_query = DB::table('kecamatan')->where('kecamatan.id_kecamatan',$kecamatan)->get();
+
+    //    // $kecamatan = $request['kecamatan'];
+
+    //    //  $arho = $request['arho'];
+        
+    //     $list_kelurahan = MyAnalisis::fetch_kelurahan($kecamatan_query[0]->nama_kecamatan);
+
+    //     //dd($list_kelurahan);
+
+    //     $detail_laporan = array();
+
+    //     foreach ($list_kelurahan as $kelurahan) {
+    //         # code...
+
+    //         $jumlah_saldo = MyAnalisis::hitung_jumlah_saldo_kelurahan($arho_query[0]->nama_lengkap,$kelurahan->KELURAHAN);
+
+
+    //         $jumlah_saldo_bal_7 = MyAnalisis::hitung_jumlah_saldo_bal_kelurahan($arho_query[0]->nama_lengkap,$kelurahan->KELURAHAN,7);
+
+    //         $jumlah_saldo_bal_30 = MyAnalisis::hitung_jumlah_saldo_bal_kelurahan($arho_query[0]->nama_lengkap,$kelurahan->KELURAHAN,30);
+
+    //         $persen_bal7 = 0;
+
+    //         $persen_bal30 = 0;
+
+    //         if($jumlah_saldo > 0){
+    //                 $persen_bal7 = ($jumlah_saldo - $jumlah_saldo_bal_7) / ($jumlah_saldo);
+
+    //                     $persen_bal30 = ($jumlah_saldo - $jumlah_saldo_bal_30) / ($jumlah_saldo);
+    //         }
+
+    //         $tmp = array(
+    //             'nama_kelurahan'=>$kelurahan->KELURAHAN,
+    //             'jumlah_saldo'=>$jumlah_saldo,
+    //             'bal7'=>$jumlah_saldo_bal_7,
+    //             'persen_bal7'=>$persen_bal7,
+    //             'bal30'=>$jumlah_saldo_bal_30,
+    //             'persen_bal30'=>$persen_bal30,
+    //             'target_arho'=>$target[0]->besar_target
+    //             );
+
+    //         if(MyAnalisis::is_valid_wilayah($jumlah_saldo)){
+    //            array_push($detail_laporan, $tmp);
+    //         }
+
+    //     }
+
+    //     //dd($detail_laporan);
+
+
+    //   return view('pages.detail_arho_kecamatan',['arho'=>$arho_query,"kecamatan"=>$kecamatan_query,
+    //     'detail_laporan'=>$detail_laporan
+    //     ]);
+    // }
 
     public function fetch_markers()
     {
@@ -138,30 +183,6 @@ class VisualisasiArhoController extends Controller
 
       }
 
-    	// for($i = 0; $i < count($list_penugasan); $i++){
-    		
-    	// 	$arho = $list_penugasan[$i]['arho'];
-
-    	// 	$target = MyAnalisis::fetch_target_arho_by_nama_lengkap($arho->nama_lengkap);
-
-    	// 	$list_kecamatan = $list_penugasan[$i]['kecamatan'];
-
-    	// 	for($j = 0; $j < count($list_kecamatan); $j++){
-    	// 		$laporan = $list_kecamatan[$j]->LAPORAN;
-
-    	// 		$jumlah_saldo = $laporan['jumlah_saldo'];
-
-    	// 		$list_kecamatan[$j]->TARGET = $target[0]->besar_target;
-
-    	// 		if($jumlah_saldo < $target[0]->besar_target){
-    	// 			$arho->avatar = 'pirates.png';
-    	// 		}
-    	// 		else{
-    	// 			$arho->avatar =  'campfire-2.png';
-    	// 		}
-    	// 	}
-
-    	// }
 
     	return response()->json($laporan_arho);
     }
@@ -395,27 +416,7 @@ class VisualisasiArhoController extends Controller
 
             $item_kecamatan->jumlah_saldo_handling = $jumlah_saldo_handling;
 
-            //   $jumlah_saldo_bal_7 = MyAnalisis::hitung_jumlah_saldo_bal($nama_arho,$nama_kecamatan,7);
-
-            // $jumlah_saldo_bal_30 = MyAnalisis::hitung_jumlah_saldo_bal($nama_arho,$nama_kecamatan,30);
-
-            // $persen_bal7 = 0;
-
-            // $persen_bal30 = 0;
-
-            // if($jumlah_saldo > 0){
-            //         $persen_bal7 = ($jumlah_saldo - $jumlah_saldo_bal_7) / ($jumlah_saldo);
-
-            //             $persen_bal30 = ($jumlah_saldo - $jumlah_saldo_bal_30) / ($jumlah_saldo);
-            // }
-
-            // $item_kecamatan->jumlah_saldo_bal_7 = $jumlah_saldo_bal_7;
-
-            // $item_kecamatan->jumlah_saldo_bal_30 = $jumlah_saldo_bal_30;
-
-            // $item_kecamatan->persen_bal7 = $persen_bal7;
-
-            // $item_kecamatan->persen_bal30 = $persen_bal30;
+           
 
 
 
@@ -426,9 +427,9 @@ class VisualisasiArhoController extends Controller
      
 
 
-      dd($laporan_arho);
+      //dd($laporan_arho);
 
-      //return $laporan_arho;
+      return $laporan_arho;
 
 
 

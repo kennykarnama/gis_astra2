@@ -48,6 +48,64 @@ class AnalisisLaporan
 		$this->nama_tabel = $nama_tabel;
 	}
 
+	public function hitung_saldo_handling_arho_kecamatan($nama_arho,$nama_kecamatan)
+	{
+		# code...
+		$total_saldo_handling = DB::table('report_handling')
+								->where('report_handling.arho','LIKE','%'.$nama_arho.'%')
+								->where('report_handling.kecamatan','LIKE','%'.$nama_kecamatan.'%')
+								->where('report_handling.status_report_handling','=',1)
+								->sum('report_handling.saldo');
+
+		return $total_saldo_handling;
+	}
+
+	public function hitung_jumlah_osa_arho_kecamatan($nama_arho,$kecamatan)
+	{
+		# code...
+
+		$summary_arho_berdasarkan_kecamatan = $this->hitung_laporan_summary_arho_berdasarkan_kecamatan();
+
+		$laporan_osa_arho_kecamatan = array();
+
+		$total_osa = 0;
+
+		foreach ($summary_arho_berdasarkan_kecamatan as $arho_berdasarkan_kecamatan) {
+
+
+			# code...
+
+			if($arho_berdasarkan_kecamatan->nama_arho == $nama_arho){
+
+				$has_kelurahan = $arho_berdasarkan_kecamatan->has_kelurahan;
+
+
+
+				foreach ($has_kelurahan as $kelurahan) {
+					# code...
+					if($kelurahan->id_kecamatan == $kecamatan->id_kecamatan){
+						$total_osa = $total_osa + $kelurahan->osa;
+					}
+				}
+
+				$arho_obj = new Arho;
+
+				$arho_obj->nama_arho = $nama_arho;
+
+				$arho_obj->nama_kecamatan = $kecamatan->nama_kecamatan;
+
+				$arho_obj->total_osa = $total_osa;
+
+				array_push($laporan_osa_arho_kecamatan, $arho_obj);	
+			}
+			
+		}
+
+		return $laporan_osa_arho_kecamatan;
+
+
+	}
+
 	public function hitung_jumlah_account_arho($nama_arho)
 	{
 		# code...

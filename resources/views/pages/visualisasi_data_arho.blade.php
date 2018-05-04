@@ -76,6 +76,8 @@
 	 <!-- SweetAlert Plugin Js -->
     <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
 
+    <script type="text/javascript" src="{{asset('js/accounting.js')}}"></script>
+
     <script type="text/javascript">
 
     var visualisasi_arho;
@@ -199,22 +201,7 @@
 
             var longitude = kecamatan.lng;
 
-            var obj = {
-              lng:longitude,
-              lat:latitude,
-              text:nama_arho +" "+kecamatan.nama_kecamatan+'<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
-                                      +"<p style='text-align:center;'> <a target='_blank' href='"+alamat_detail_laporan+"'>Lihat Detail</a>"
-                                      +"<p>Jumlah Saldo "+kecamatan.jumlah_saldo+"</p>"
-                                      +"<p>Bal 7 "+kecamatan.jumlah_saldo_bal_7+"</p>"
-                                      +"<p>% Bal 7 "+kecamatan.persen_bal7+"</p>"
-                                      +"<p> Target Arho "+penugasan.target_arho[0].besar_target +"</p>",
-             
-              rgb:{r:warnanya[0],g:warnanya[1],b:warnanya[2]},
-              pin_color:pinColor
-
-            };
-
-            obj_peta.push(obj);
+           
 
             //console.log(lat+" "+lng);
 
@@ -230,33 +217,20 @@
             alamat_detail_laporan = alamat_detail_laporan.replace(':arho',penugasan.id_arho);
              alamat_detail_laporan = alamat_detail_laporan.replace(':kecamatan',kecamatan.id_kecamatan);
 
+              var obj = {
+              lng:longitude,
+              lat:latitude,
+              text:nama_arho +" "+kecamatan.nama_kecamatan+'<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
+                                      +"<p style='text-align:center;'> <a target='_blank' href='"+alamat_detail_laporan+"'>Lihat Detail</a>"
+                                      +"<p>Jumlah Saldo Handling "+accounting.formatMoney(kecamatan.jumlah_saldo_handling, "Rp.", 2, ".", ",") +"</p>",        
+              rgb:{r:warnanya[0],g:warnanya[1],b:warnanya[2]},
+              pin_color:pinColor
 
+            };
 
-            // visualisasi_arho.addMarker({
-            //     lat: latitude,
-            //     lng: longitude,
-            //     title: nama_arho+" Kecamatan "+kecamatan.nama_kecamatan,
-            //     icon : pinImage,
-            //     infoWindow: {
-            //                   content: '<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
-            //                           +"<p style='text-align:center;'> <a target='_blank' href='"+alamat_detail_laporan+"'>Lihat Detail</a>"
-            //                           +"<p>Jumlah Saldo "+kecamatan.jumlah_saldo+"</p>"
-            //                           +"<p>Bal 7 "+kecamatan.jumlah_saldo_bal7+"</p>"
-            //                           +"<p>% Bal 7 "+kecamatan.persen_bal7+"</p>"
-            //                           +"<p>Bal 30 "+kecamatan.jumlah_saldo_bal30+"</p>"
-            //                           +"<p>% Bal 30"+kecamatan.persen_bal30+"</p>"
-            //                           +"<p> Target Arho "+penugasan.target_arho +"</p>"
-            //                 },
-            // //             mouseover: function(){
-            // //     (this.infoWindow).open(this.map, this);
-            // // },
-            // // mouseout: function(){
-            // //     this.infoWindow.close();
-            // // },
-            // //     click: function(e){
-            // //       load_detail_arho();
-            // //     }
-            //   });
+            obj_peta.push(obj);
+
+           
 
 
           }
@@ -319,9 +293,9 @@
                        },
                        success:function(data){
 
-                        console.log(data);
+                        //console.log(data);
 
-                        //setup_markers(data);
+                        setup_markers(data);
                          
                        }
                     });
