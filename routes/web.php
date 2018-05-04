@@ -22,9 +22,7 @@ Route::post('/admin/login/submit', ['uses' => 'Auth\AdminLoginController@login']
 
 Route::post('/admin/logout', ['uses' => 'Auth\AdminLoginController@logout'])->name('admin.logout');
 
-Route::get('/', ['uses' => 'Pages\InterfaceController@test_dashboard'])->name('admin.dashboard2');
-
-Route::get('/dashboard', ['uses' => 'Pages\InterfaceController@dashboard'])->name('admin.dashboard');
+Route::get('/', ['uses' => 'Pages\InterfaceController@dashboard'])->name('admin.dashboard');
 
 
 Route::get('/informasi_arho', ['uses' => 'Pages\InformasiArhoController@index'])->name('admin.informasi_arho');
