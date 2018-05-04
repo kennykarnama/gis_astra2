@@ -13,6 +13,8 @@ use App\AnalisisData\Arho;
 
 class MyAnalisis {
 
+	
+
 	public static function fetch_laporan()
 	{
 		# code...
@@ -29,6 +31,8 @@ class MyAnalisis {
 
 		return $query;
 	}
+
+	
 
 	public static function get_jumlah_customer()
 	{
@@ -316,6 +320,28 @@ class MyAnalisis {
 
 		return $jumlah_saldo;
 
+	}
+
+		public static function hitung_jumlah_saldo_handling($arho,$kecamatan)
+	{
+		# code...
+
+		$jumlah_saldo_handling = DB::table('report_handling')->where('report_handling.arho','=',$arho)
+											->where('report_handling.kecamatan','=',$kecamatan)
+											->sum('report_handling.saldo');
+
+		return $jumlah_saldo_handling;
+
+	}
+
+	public function hitung_jumlah_saldo_kecamatan($kecamatan)
+	{
+		# code...
+			$jumlah_saldo_handling = DB::table('report_handling')->where('report_handling.arho','=',$arho)
+											->where('report_handling.kecamatan','=',$kecamatan)
+											->sum('report_handling.saldo');
+
+		return $jumlah_saldo_handling;
 	}
 
 	public static function hitung_jumlah_saldo_kelurahan($arho,$kelurahan)

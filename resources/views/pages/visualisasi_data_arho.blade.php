@@ -321,7 +321,7 @@
 
                         console.log(data);
 
-                        setup_markers(data);
+                        //setup_markers(data);
                          
                        }
                     });

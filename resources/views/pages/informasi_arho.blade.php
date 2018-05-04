@@ -11,6 +11,8 @@
     <!-- Sweetalert Css -->
     <link href="{{asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
 
+      <link href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css')}}" rel="stylesheet" />
+
     <style type="text/css">
         
         .btn-group button {
@@ -37,7 +39,27 @@
 .btn-group button:hover {
     background-color: #3e8e41;
 }
-    </style>
+.foo {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.blue {
+  background: #13b4ff;
+}
+
+.purple {
+  background: #ab3fdd;
+}
+
+.wine {
+  background: #ae163e;
+}
+
+ </style>
 
   <section class="content">
         <div class="container-fluid">
@@ -73,6 +95,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Arho</th>
+                                            <th>Warna Arho</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -115,6 +138,18 @@
                                     </div>
                                  
                                 </div>
+
+                                <div class="col-md-12">
+                                    <b>Kode Warna</b>
+                                    <div class="input-group colorpicker">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" value="#00AABB" id="warna_arho">
+                                        </div>
+                                        <span class="input-group-addon">
+                                            <i></i>
+                                        </span>
+                                    </div>
+                                </div>
                 </div>
 
                  
@@ -150,6 +185,18 @@
                                             <input id="edit_nama_arho" type="text" class="form-control" placeholder="Nama arho" />
                                         </div>
                                     </div>
+
+                                    <div class="col-md-12">
+                                    <b>Kode Warna</b>
+                                    <div class="input-group colorpicker">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" value="#00AABB" id="edit_warna_arho">
+                                        </div>
+                                        <span class="input-group-addon">
+                                            <i></i>
+                                        </span>
+                                    </div>
+                                </div>
                                    
                                 </div>
                 </div>
@@ -184,6 +231,8 @@
 
       <!-- Dropzone Plugin Js -->
     <script src="{{asset('plugins/dropzone/dropzone.js')}}"></script>
+
+     <script src="{{asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js')}}"></script>
 
     <script type="text/javascript">
 
@@ -250,7 +299,7 @@
 
         var nama_arho = $('#nama_arho').val();
 
-      
+        var warna_arho = $('#warna_arho').val();
 
 
         swal({
@@ -277,6 +326,7 @@
             type: "POST",
             data: {
                        "nama_arho":nama_arho,
+                       "warna_arho":warna_arho
                      
             },
             dataType: "json",
@@ -313,12 +363,7 @@ function update_arho() {
 
         var nama_arho = $('#edit_nama_arho').val();
 
-        var luas_wilayah = $("#edit_luas_wilayah").val();
-
-        var lat = $('#edit_lat').val();
-
-        var lng = $('#edit_lng').val();
-
+        var warna_arho = $('#edit_warna_arho').val();
 
 
         swal({
@@ -346,9 +391,7 @@ function update_arho() {
             data: {
                        "id_arho":id_arho,
                        "nama_arho":nama_arho,
-                       "luas_wilayah":luas_wilayah,
-                       "lat":lat,
-                       "lng":lng
+                       "warna_arho":warna_arho
             },
             dataType: "json",
             success: function (data) {
@@ -407,7 +450,9 @@ function fetch_arho_by(id_arho) {
 
                 $('#id_arho').val(id_arho);
 
-               
+                $('#edit_warna_arho').val(arho.warna_arho);
+
+                $("#edit_warna_arho").trigger('change');
 
                 $('#modal-edit-arho').modal('show');
 
@@ -441,6 +486,7 @@ $(document).ready(function  () {
                         "columns": [
                             { "data": "no"},
                             { "data": "nama_arho" },
+                            {"data":"warna_arho"},
                             {"data":"actions"}
                         ]
 
@@ -471,6 +517,8 @@ $(document).ready(function  () {
            // body...
            update_arho();
        });
+
+        $('.colorpicker').colorpicker();
 
 
 

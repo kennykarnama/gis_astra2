@@ -28,10 +28,14 @@ class InformasiArhoController extends Controller
         # code...
         $nama_lengkap = $request['nama_arho'];
 
+        $warna_arho = $request['warna_arho'];
+
        
         $arho = new arho;
 
         $arho->nama_lengkap = $nama_lengkap;
+
+        $arho->warna_arho = $warna_arho;
 
         $arho->is_aktif = 1;
 
@@ -71,10 +75,14 @@ class InformasiArhoController extends Controller
 
          $nama_lengkap = $request['nama_arho'];
 
+         $warna_arho = $request['warna_arho'];
+
 
         $arho = arho::find($id_arho);
 
         $arho->nama_lengkap = $nama_lengkap;
+
+        $arho->warna_arho = $warna_arho;
 
       
 
@@ -164,7 +172,7 @@ class InformasiArhoController extends Controller
 
             $nested_array['nama_arho'] = $Arho->nama_lengkap;
 
-          
+            $nested_array['warna_arho'] = '<div class="foo" style="background:'.$Arho->warna_arho.'"></div>';
 
            
 

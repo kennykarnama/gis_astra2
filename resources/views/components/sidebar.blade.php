@@ -75,7 +75,7 @@
 
                          <ul class="ml-menu">
 
-                            <li>
+                           <!--  <li>
                                 <a href="{{route('admin.upload_file')}}">
                                     <span>File Laporan</span>
                                 </a>
@@ -91,19 +91,33 @@
                                 <a href="{{route('admin.import_data_customer')}}">
                                     <span>Data Customer</span>
                                 </a>
+                            </li> -->
+
+
+                             <li>
+                                <a href="{{route('admin.import_laporan_handling')}}">
+                                    <span>Laporan Handling</span>
+                                </a>
                             </li>
                            
-                            <li>
+                           <!--  <li>
                                 <a href="{{route('admin.laporan.target_arho')}}">
                                     <span>Target ARHO</span>
                                 </a>
-                            </li>
+                            </li> -->
 
-                             <li>
+                            <li>
+                                <a href="{{route('admin.upload_file_osa')}}">
+                                    <span>OSA dan ACC</span>
+                                </a>
+                            </li>
+                           
+
+                            <!--  <li>
                                 <a href="{{route('admin.laporan.upload_warna_arho')}}">
                                     <span>Warna ARHO</span>
                                 </a>
-                            </li>
+                            </li> -->
 
                            <!--   <li id="menu-informasi-arho">
                                 <a href="{{route('admin.informasi_arho')}}">

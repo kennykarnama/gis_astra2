@@ -114,18 +114,18 @@ class VisualisasiArhoController extends Controller
 
         //dd($target_arho);
 
-        $total_saldo_keseluruhan_bal7 = 0;
+        $total_saldo_handling_keseluruhan = 0;
 
         $list_kecamatan = $laporan->kecamatan;
 
         foreach ($list_kecamatan as $kecamatan) {
           # code...
-          $total_saldo_keseluruhan = $total_saldo_keseluruhan_bal7 + $kecamatan->jumlah_saldo_bal_7;
+          $total_saldo_handling_keseluruhan = $total_saldo_handling_keseluruhan + $kecamatan->jumlah_saldo_handling;
 
 
         }
 
-        if($total_saldo_keseluruhan_bal7 < $target_arho[0]->besar_target){
+        if($total_saldo_handling_keseluruhan < $target_arho[0]->besar_target){
           $laporan->avatar =  'campfire-2.png';
 
         }
@@ -301,11 +301,14 @@ class VisualisasiArhoController extends Controller
 
       $laporan_arho = array();
 
-      $laporan = DB::table('report')->whereNotNull('report.ARHO')->get();
+      $laporan = DB::table('report_handling')->whereNotNull('report_handling.ARHO')->get();
 
       // dapatkan list arho dulu berdasarkan file excelnya, yg ada di report, exclude null
 
-      $list_arho = DB::table('report')->select('report.ARHO')->whereNotNull('report.ARHO')->distinct()->get();
+      $list_arho = DB::table('report_handling')->select('report_handling.arho')->whereNotNull('report_handling.arho')->distinct()->get();
+
+
+      //dd($list_arho);
 
       // untuk setiap arho, dapatkan kecamatannya
 
@@ -320,35 +323,55 @@ class VisualisasiArhoController extends Controller
 
           foreach ($laporan as $item) {
             # code...
-             $is_exist = $this->isExistKecamatan($item->KECAMATAN,$arho_has_kecamatan);
+             $is_exist = $this->isExistKecamatan($item->kecamatan,$arho_has_kecamatan);
 
              //echo $is_exist;
 
-             if($is_exist == 0 && $item->ARHO == $arho->ARHO){
+             if($is_exist == 0 && $item->arho == $arho->arho){
 
-              $query_koordinat_kecamatan = DB::table('kecamatan')->where('kecamatan.nama_kecamatan','LIKE','%'.$item->KECAMATAN.'%')->get();
+              $query_koordinat_kecamatan = DB::table('kecamatan')->where('kecamatan.nama_kecamatan','LIKE','%'.$item->kecamatan.'%')->get();
 
-              $kecamatan_obj = new KecamatanObj;
+              // if($query_koordinat_kecamatan->count()){
+
+                $kecamatan_obj = new KecamatanObj;
               $kecamatan_obj->id_kecamatan = $query_koordinat_kecamatan[0]->id_kecamatan;
-              $kecamatan_obj->nama_kecamatan = $item->KECAMATAN;
+              $kecamatan_obj->nama_kecamatan = $item->kecamatan;
               $kecamatan_obj->lat = $query_koordinat_kecamatan[0]->lat;
               $kecamatan_obj->lng = $query_koordinat_kecamatan[0]->lng;
               array_push($arho_has_kecamatan, $kecamatan_obj);
+
+              // }
+
+              // else{
+              //   dd($item->kecamatan);
+              // }
+
+              
              }
           }
 
-          $query_arho = DB::table('arho')->where('arho.nama_lengkap','LIKE','%'.$arho->ARHO.'%')->get();
+          $query_arho = DB::table('arho')->where('arho.nama_lengkap','LIKE','%'.$arho->arho.'%')->get();
 
-          $arho_obj->id_arho = $query_arho[0]->id_arho;
+
+          // if($query_arho->count()){
+
+             $arho_obj->id_arho = $query_arho[0]->id_arho;
 
           $arho_obj->warna_arho = $query_arho[0]->warna_arho;
 
-          $arho_obj->nama_arho = $arho->ARHO;
+          $arho_obj->nama_arho = $arho->arho;
 
           $arho_obj->kecamatan = $arho_has_kecamatan;
 
           array_push($laporan_arho, $arho_obj);
+
+          // }
+
+
+         
       }
+
+
 
       // setelah itu dapatkan jumlah saldo nya berdasarkan kecamatannya
 
@@ -368,31 +391,31 @@ class VisualisasiArhoController extends Controller
 
           $nama_arho = $item_arho->nama_arho;
 
-            $jumlah_saldo = MyAnalisis::hitung_jumlah_saldo($nama_arho,$nama_kecamatan);
+            $jumlah_saldo_handling = MyAnalisis::hitung_jumlah_saldo_handling($nama_arho,$nama_kecamatan);
 
-            $item_kecamatan->jumlah_saldo = $jumlah_saldo;
+            $item_kecamatan->jumlah_saldo_handling = $jumlah_saldo_handling;
 
-              $jumlah_saldo_bal_7 = MyAnalisis::hitung_jumlah_saldo_bal($nama_arho,$nama_kecamatan,7);
+            //   $jumlah_saldo_bal_7 = MyAnalisis::hitung_jumlah_saldo_bal($nama_arho,$nama_kecamatan,7);
 
-            $jumlah_saldo_bal_30 = MyAnalisis::hitung_jumlah_saldo_bal($nama_arho,$nama_kecamatan,30);
+            // $jumlah_saldo_bal_30 = MyAnalisis::hitung_jumlah_saldo_bal($nama_arho,$nama_kecamatan,30);
 
-            $persen_bal7 = 0;
+            // $persen_bal7 = 0;
 
-            $persen_bal30 = 0;
+            // $persen_bal30 = 0;
 
-            if($jumlah_saldo > 0){
-                    $persen_bal7 = ($jumlah_saldo - $jumlah_saldo_bal_7) / ($jumlah_saldo);
+            // if($jumlah_saldo > 0){
+            //         $persen_bal7 = ($jumlah_saldo - $jumlah_saldo_bal_7) / ($jumlah_saldo);
 
-                        $persen_bal30 = ($jumlah_saldo - $jumlah_saldo_bal_30) / ($jumlah_saldo);
-            }
+            //             $persen_bal30 = ($jumlah_saldo - $jumlah_saldo_bal_30) / ($jumlah_saldo);
+            // }
 
-            $item_kecamatan->jumlah_saldo_bal_7 = $jumlah_saldo_bal_7;
+            // $item_kecamatan->jumlah_saldo_bal_7 = $jumlah_saldo_bal_7;
 
-            $item_kecamatan->jumlah_saldo_bal_30 = $jumlah_saldo_bal_30;
+            // $item_kecamatan->jumlah_saldo_bal_30 = $jumlah_saldo_bal_30;
 
-            $item_kecamatan->persen_bal7 = $persen_bal7;
+            // $item_kecamatan->persen_bal7 = $persen_bal7;
 
-            $item_kecamatan->persen_bal30 = $persen_bal30;
+            // $item_kecamatan->persen_bal30 = $persen_bal30;
 
 
 
@@ -403,9 +426,9 @@ class VisualisasiArhoController extends Controller
      
 
 
-      //dd($laporan_arho);
+      dd($laporan_arho);
 
-      return $laporan_arho;
+      //return $laporan_arho;
 
 
 

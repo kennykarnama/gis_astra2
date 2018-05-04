@@ -5,17 +5,9 @@ namespace App\Http\Controllers\Pages;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use App\AnalisisData\MyAnalisis;
 use DB;
+use App\AnalisisData\AnalisisLaporan;
 
-/**
-* 
-*/
-class SummaryArho
-{
-    
-    
-}
 
 class InterfaceController extends Controller
 {
@@ -30,6 +22,29 @@ class InterfaceController extends Controller
     {
     	# code...
     	return view('pages.signin');
+    }
+
+    public function dashboard()
+    {
+        # code...
+        $analisis_laporan = new AnalisisLaporan('report_handling');
+
+        $summary_arho_dashboard = $analisis_laporan->hitung_laporan_summary_arho_berdasarkan_kecamatan();
+
+        $jumlah_osa = $analisis_laporan->hitung_jumlah_osa();
+
+        $jumlah_customer = $analisis_laporan->hitung_jumlah_customer();
+
+        $jumlah_saldo_handling = $analisis_laporan->hitung_saldo_handling();
+
+        return view('pages.dashboard',[
+            'summary_arho_dashboard'=>$summary_arho_dashboard,
+            'jumlah_osa'=>$jumlah_osa,
+            "jumlah_customer"=>$jumlah_customer,
+            "jumlah_saldo_handling"=>$jumlah_saldo_handling
+            ]);
+        return $summary_arho_dashboard;
+        //dd($summary_arho_dashboard);
     }
 
     public function test_dashboard()

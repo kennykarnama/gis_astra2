@@ -22,7 +22,10 @@ Route::post('/admin/login/submit', ['uses' => 'Auth\AdminLoginController@login']
 
 Route::post('/admin/logout', ['uses' => 'Auth\AdminLoginController@logout'])->name('admin.logout');
 
-Route::get('/', ['uses' => 'Pages\InterfaceController@test_dashboard'])->name('admin.dashboard');
+Route::get('/', ['uses' => 'Pages\InterfaceController@test_dashboard'])->name('admin.dashboard2');
+
+Route::get('/dashboard', ['uses' => 'Pages\InterfaceController@dashboard'])->name('admin.dashboard');
+
 
 Route::get('/informasi_arho', ['uses' => 'Pages\InformasiArhoController@index'])->name('admin.informasi_arho');
 
@@ -74,7 +77,13 @@ Route::get('/import_data_customer', ['uses' => 'Pages\ImportDataCustomerControll
 
 Route::post('/import_data_customer/import', ['uses' => 'Pages\ImportDataCustomerController@import_excel'])->name('admin.import_data_customer.import');
 
+Route::post('/import_laporan_handling/import', ['uses' => 'Pages\ImportLaporanHandlingController@import_excel'])->name('admin.import_laporan_handling.import');
 
+Route::get('/import_laporan_handling', ['uses' => 'Pages\ImportLaporanHandlingController@index'])->name('admin.import_laporan_handling');
+
+Route::get('/upload_file_osa', ['uses' => 'Pages\UploadFileOsaController@index'])->name('admin.upload_file_osa');
+
+Route::post('/upload_file_osa/import', ['uses' => 'Pages\UploadFileOsaController@import_excel'])->name('admin.upload_file_osa.import');
 
 Route::get('/upload_warna_arho', ['uses' => 'Pages\WarnaArhoController@indexHome'])->name('admin.laporan.upload_warna_arho');
 
