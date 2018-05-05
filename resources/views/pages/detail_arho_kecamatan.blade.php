@@ -51,7 +51,7 @@
                             <th>Saldo Handling</th>
                             <th>OSA</th>
                             <th>Target Perusahaan</th>
-                            <th>Target Actual</th>
+                            <th>Actual</th>
                           </tr>
                         </thead>
 
@@ -60,9 +60,9 @@
                         <tr>
                           
                           <td>Rp. {{number_format($total_saldo_handling)}}</td>
-                          <td>Rp. {{number_format($laporan_osa_arho_kecamatan->total_osa)}}]</td>
-                          <td><p style="color: {{$status_target}}">{{$target_arho->besar_target}}</p></td>
-                          <td><p style="color: {{$status_target}}">{{$target_actual}} %</p></td>
+                          <td>Rp. {{number_format($laporan_osa_arho_kecamatan->total_osa)}}</td>
+                          <td><p style="color: {{$status_target}}">{{$target_perusahaan}}</p></td>
+                          <td><p style="color: {{$status_target}}">{{$actual}} %</p></td>
 
                         </tr>
                           

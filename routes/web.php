@@ -88,6 +88,12 @@ Route::post('/upload_file_osa/import', ['uses' => 'Pages\UploadFileOsaController
 
 Route::get('/upload_warna_arho', ['uses' => 'Pages\WarnaArhoController@indexHome'])->name('admin.laporan.upload_warna_arho');
 
+Route::get('/upload_file_actual_arho', ['uses' => 'Pages\UploadFileActualArhoController@index'])->name('admin.upload_file_actual_arho');
+
+Route::post('/upload_file_actual_arho/import', ['uses' => 'Pages\UploadFileActualArhoController@import_excel'])->name('admin.upload_file_actual_arho.import');
+
+
+
 Route::post('/upload_warna_arho/update_warna_arho', ['uses' => 'Pages\WarnaArhoController@update_warna_arho'])->name('admin.laporan.upload_warna_arho.update_warna_arho');
 
 Route::get('/visualisasi/umum', ['uses' => 'Pages\VisualisasiDataController@umum'])->name('admin.visualisasi.umum');

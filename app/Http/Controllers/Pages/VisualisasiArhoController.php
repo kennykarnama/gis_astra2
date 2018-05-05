@@ -46,9 +46,13 @@ class VisualisasiArhoController extends Controller
 
       $arho = Arho::find($id_arho);
 
-      $query_target_arho = DB::table('target_arho')
-                          ->where('target_arho.id_arho','=',$arho->id_arho)
+      $query_actual_arho = DB::table('actual_arho')
+                          ->where('actual_arho.arho','LIKE','%'.$arho->nama_lengkap.'%')
                           ->get();
+
+      $query_target_perusahaan = DB::table('target_arho')
+                                ->where('target_arho.id_arho','=',$arho->id_arho)
+                                ->get();
 
       $kecamatan = Kecamatan::find($id_kecamatan);
 
@@ -58,23 +62,25 @@ class VisualisasiArhoController extends Controller
 
       //dd($laporan_osa_arho_kecamatan);
 
-      $target_actual = 0.0;
+      $actual = floatval($query_actual_arho[0]->actual) * 100;
 
-      if($total_saldo_handling > 0 && $laporan_osa_arho_kecamatan[0]->total_osa > 0){
-        $target_actual = ($total_saldo_handling) / $laporan_osa_arho_kecamatan[0]->total_osa;
-      }
+      $target_perusahaan = $query_target_perusahaan[0]->besar_target;
+
+      // if($total_saldo_handling > 0 && $laporan_osa_arho_kecamatan[0]->total_osa > 0){
+      //   $target_actual = ($total_saldo_handling) / $laporan_osa_arho_kecamatan[0]->total_osa;
+      // }
 
       $status_target = '';
 
-      if($target_actual > $query_target_arho[0]->besar_target){
+      if($actual > $target_perusahaan){
         $status_target = '#FF0000';
       }
 
        return view('pages.detail_arho_kecamatan',['arho'=>$arho,"kecamatan"=>$kecamatan,
           'total_saldo_handling'=>$total_saldo_handling,
           'laporan_osa_arho_kecamatan'=>$laporan_osa_arho_kecamatan[0],
-          'target_arho'=>$query_target_arho[0],
-          'target_actual'=>$target_actual*100,
+          'target_perusahaan'=>$target_perusahaan,
+          'actual'=>$actual,
           'status_target'=>$status_target 
         ]);
 

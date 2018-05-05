@@ -12,7 +12,7 @@
 				 	<div class="card">
 				 		<div class="header">
                             <h2>
-                                Target Arho
+                                Target Perusahaan
                             </h2>
                           
                         </div>

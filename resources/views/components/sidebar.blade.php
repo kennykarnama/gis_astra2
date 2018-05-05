@@ -75,7 +75,7 @@
 
                          <ul class="ml-menu">
 
-                           <!--  <li>
+                            <li>
                                 <a href="{{route('admin.upload_file')}}">
                                     <span>File Laporan</span>
                                 </a>
@@ -88,10 +88,10 @@
                             </li>
 
                              <li>
-                                <a href="{{route('admin.import_data_customer')}}">
-                                    <span>Data Customer</span>
+                                <a href="{{route('admin.laporan.target_arho')}}">
+                                    <span>Target Perusahaan</span>
                                 </a>
-                            </li> -->
+                            </li>
 
 
                              <li>
@@ -101,8 +101,8 @@
                             </li>
                            
                             <li>
-                                <a href="{{route('admin.laporan.target_arho')}}">
-                                    <span>Target ARHO</span>
+                                <a href="{{route('admin.upload_file_actual_arho')}}">
+                                    <span>Actual ARHO</span>
                                 </a>
                             </li>
 
