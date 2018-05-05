@@ -48,8 +48,10 @@
     <!-- Google Maps API Js -->
     <script src="https://maps.google.com/maps/api/js?v=3&key=AIzaSyCyeVc3UAC4QH-BTOMxDmHurREmagwv3DY"></script>
 
-    <!-- GMaps PLugin Js -->
-    <script src="{{asset('plugins/gmaps/gmaps.js')}}"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+
+      <script type="text/javascript" src="{{asset('js/accounting.js')}}"></script>
 
  <script>
 
@@ -97,26 +99,7 @@
       $('#modal-detail-customer').modal('show');
     }
 
-    function load_laporan_customer () {
-        // body...
-            $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    $.ajax({
-                       type:'POST',
-                       url:'{{route("admin.visualisasi.customer.get_laporan_customer")}}',
-                       data:{
-
-                      
-                       },
-                       success:function(data){
-                         console.log(data);
-                       }
-                    });
-    };
+   
 
     function setup_markers (data) {
       // body...
@@ -140,19 +123,23 @@
 
       for(var i = 0; i < data.length; i++){
           
-          var penugasan = data[i];
+          var customer = data[i];
 
-          var nama_customer = penugasan.nama_customer;
+          var nama_customer = customer.nama_customer;
 
-          var avatar = penugasan.avatar;
+          var nama_arho = customer.nama_arho;
 
-          var icon_path = "{{asset('images/mapmarkers')}}"+"/"+avatar;
+          var no_agreement = customer.agreement;
 
-          
+          var nama_kelurahan = customer.nama_kelurahan;
 
+          var pinColor = customer.warna_customer;
 
+          var latitude = customer.lat;
 
-          var pinColor = penugasan.warna_customer;
+          var longitude = customer.lng;
+
+          var jumlah_saldo_handling = customer.saldo;
 
           warnanya = hex2rgb(pinColor);
 
@@ -164,38 +151,18 @@
               new google.maps.Point(0,0),
               new google.maps.Point(10, 34));
 
-          var list_kecamatan = penugasan.kecamatan;
-
-          for(var j=0; j < list_kecamatan.length; j++){
-            
-            var kecamatan = list_kecamatan[j];
-
-            var latitude = kecamatan.lat;
-
-            var longitude = kecamatan.lng;
-
-           
-
-            //console.log(lat+" "+lng);
-
-            //console.log(kecamatan.LAPORAN);
-            var mycontent = '<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
-                                      +"<p style='text-align:center;'><button class='btn btn-primary btn-detail-customer'"
-                                     
-                                      +" >Lihat Detail</button>";
-
             
 
-            var alamat_detail_laporan = "{{route('admin.visualisasi.customer.detail_laporan',[':customer',':kecamatan'])}}";
-            alamat_detail_laporan = alamat_detail_laporan.replace(':customer',penugasan.id_customer);
-             alamat_detail_laporan = alamat_detail_laporan.replace(':kecamatan',kecamatan.id_kecamatan);
+          
 
               var obj = {
               lng:longitude,
               lat:latitude,
-              text:nama_customer +" "+kecamatan.nama_kecamatan+'<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
-                                      +"<p style='text-align:center;'> <a target='_blank' href='"+alamat_detail_laporan+"'>Lihat Detail</a>"
-                                      +"<p>Jumlah Saldo Handling "+accounting.formatMoney(kecamatan.jumlah_saldo_handling, "Rp.", 2, ".", ",") +"</p>",        
+              text:nama_customer +" "+nama_kelurahan+'<p><b>Kelurahan '+nama_kelurahan+"</b></p>"
+                                      +"<p>Jumlah Saldo Handling "+accounting.formatMoney(jumlah_saldo_handling, "Rp.", 2, ".", ",") +"</p>"
+                                      +"<p>Arho "+nama_arho+"</p>"
+                                      +"<p>No Agreement "+no_agreement+"</p>"
+                                      ,        
               rgb:{r:warnanya[0],g:warnanya[1],b:warnanya[2]},
               pin_color:pinColor
 
@@ -203,11 +170,7 @@
 
             obj_peta.push(obj);
 
-           
-
-
-          }
-
+         
   
 
       }
@@ -266,7 +229,7 @@
                        },
                        success:function(data){
 
-                        //console.log(data);
+                        console.log(data);
 
                         setup_markers(data);
                          

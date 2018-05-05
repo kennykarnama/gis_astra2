@@ -10,12 +10,12 @@ use Auth;
 /**
 * 
 */
-class Customer extends 
+class Customer  
 {
     
     
 }
-class VisualisasiCustomer extends Controller
+class VisualisasiCustomerController extends Controller
 {
     //
 
@@ -52,15 +52,36 @@ class VisualisasiCustomer extends Controller
 
             $customer_obj->nama_arho = $report_handling->arho;
 
+            $customer_obj->saldo = $report_handling->saldo;
+
             $query_arho = DB::table('arho')
                           ->where('arho.is_aktif','=',1)
                           ->where('arho.nama_lengkap','LIKE','%'.$report_handling->arho.'%')
                           ->get();
 
+            $customer_obj->warna_customer = $query_arho[0]->warna_arho;
+
+            $query_kelurahan = DB::table('kelurahan')
+                               ->where('kelurahan.nama_kelurahan','LIKE','%'.$report_handling->kelurahan.'%')
+                               ->where('kelurahan.is_aktif','=',1)
+                               ->get();
+
+            $customer_obj->nama_kelurahan = $query_kelurahan[0]->nama_kelurahan;
+
+            $customer_obj->lat = $query_kelurahan[0]->lat;
+
+            $customer_obj->lng = $query_kelurahan[0]->lng;
+
+            array_push($markers_customer, $customer_obj);
+
             // if($query_arho->count()){
             //     $que
             // }
         }
+
+        return response()->json($markers_customer);
+
+        
 
     }
 }

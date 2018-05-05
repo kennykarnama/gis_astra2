@@ -180,7 +180,16 @@
                                 <a href="{{route('admin.visualisasi.kecamatan')}}">
                                     <span>KECAMATAN</span>
                                 </a>
-                            </li>                          
+                            </li>
+
+                            <li>
+                                <a href="{{route('admin.visualisasi.customer')}}">
+                                    <span>CUSTOMER</span>
+                                </a>
+                            </li>
+
+
+                                                      
                         </ul>
                     </li>   
                    

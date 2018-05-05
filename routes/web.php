@@ -111,6 +111,12 @@ Route::post('/visualisasi/kecamatan/get_list_kecamatan', ['uses' => 'Pages\Visua
 
 Route::get('/visualisasi/kecamatan/detail_kecamatan/{kecamatan}', ['uses' => 'Pages\VisualisasiKecamatanController@detail_kecamatan'])->name('admin.visualisasi.kecamatan.detail_kecamatan');
 
+Route::get('/visualisasi/customer', ['uses' => 'Pages\VisualisasiCustomerController@indexHome'])->name('admin.visualisasi.customer');
+
+
+Route::post('/visualisasi/customer/fetch_markers', ['uses' => 'Pages\VisualisasiCustomerController@fetch_markers'])->name('admin.visualisasi.customer.fetch_markers');
+
+
 Route::get('/laporan/status_customer', ['uses' => 'Pages\StatusCustomerController@index'])->name('admin.laporan.status_customer');
 
 Route::post('/laporan/status_customer/allCustomers', ['uses' => 'Pages\StatusCustomerController@allCustomers'])->name('admin.laporan.status_customer.allCustomers');
