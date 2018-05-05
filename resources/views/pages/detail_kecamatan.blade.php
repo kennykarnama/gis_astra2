@@ -51,7 +51,7 @@
                            <td></td>
                            <td>Rp.{{number_format($total_saldo_handling_kecamatan)}}</td>
                            <td>Rp.{{number_format($total_osa_kecamatan)}}</td>
-                           <td>{{number_format($total_target_actual_kecamatan)}}</td>
+                           <td>{{number_format($total_target_actual_kecamatan)}} %</td>
                          </tr>
                        </tfoot>
 
