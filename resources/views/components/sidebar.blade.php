@@ -100,11 +100,11 @@
                                 </a>
                             </li>
                            
-                           <!--  <li>
+                            <li>
                                 <a href="{{route('admin.laporan.target_arho')}}">
                                     <span>Target ARHO</span>
                                 </a>
-                            </li> -->
+                            </li>
 
                             <li>
                                 <a href="{{route('admin.upload_file_osa')}}">

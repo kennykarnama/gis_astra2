@@ -23,84 +23,102 @@
 					                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						                    <div class="info-box hover-zoom-effect">
 						                        <div class="icon bg-cyan">
-						                            <i class="material-icons">gps_fixed</i>
 						                        </div>
 						                        <div class="content">
 						                            <div class="text">KECAMATAN</div>
-						                            <div class="number">{{$kecamatan[0]->nama_kecamatan}}</div>
+						                            <div class="number">{{$kecamatan->nama_kecamatan}}</div>
 						                        </div>
 						                    </div>
                 					</div>
 					                
           					  </div>
 
-          		<table class="table table-bordered"  id="tabel_laporan_detail">
+          		        <table class="table table-bordered">
 
                         <thead>
                           <tr>
-                          <th style="text-align:center; vertical-align:middle;" rowspan="2">Nama Arho</th>
-                          <th style="text-align:center; vertical-align:middle;" rowspan="2">SALDO</th>
-                          <th style="text-align:center; vertical-align:middle;" colspan="2" scope="colgroup">Bal 7</th>
-                          <th style="text-align:center; vertical-align:middle;" colspan="2" scope="colgroup">Bal 30</th>
-                         
-                          </tr>
-
-                          <tr>
-                            <th scope="col" style="text-align:center; vertical-align:middle;">Rp.</th>
-                            <th scope="col" style="text-align:center; vertical-align:middle;">%.</th>
-                            <th scope="col" style="text-align:center; vertical-align:middle;">Rp.</th>
-                            <th scope="col" style="text-align:center; vertical-align:middle;">%</th>
-                            
+                            <th>Arho</th>
+                            <th>Kelurahan</th>
+                            <th>OSA</th>
+                            <th>Target Actual</th>
                           </tr>
                         </thead>
-                        
+
                         <tbody>
-                           
-                          @for($i=0; $i < count($list_laporan); $i++)
-
+                          
+                        
+                          <tr>
                             @php
-                              $laporan = $list_laporan[$i];
+                              
+                              $has_kelurahan = $laporan_saldo_handling_kecamatan->has_kelurahan;
 
-                              $arho = $laporan['arho'];
-
-                              $kecamatan = $laporan['kecamatan'];
-
-                              $laporan_kecamatan = $kecamatan[0]->LAPORAN;
-
-                              $jumlah_saldo = $laporan_kecamatan['jumlah_saldo'];
-
-                              $target_arho = $laporan_kecamatan['target_arho'];
+                             
 
 
                             @endphp
 
-                            <tr>
-                              <td>{{$arho->nama_lengkap}}</td>
+                            @for($i=0;$i<count($has_kelurahan);$i++)
 
-                              @if($target_arho > $jumlah_saldo)
-                                <td style="color:red;">{{$jumlah_saldo}}</td>
+                              @php
+
+                              $str_nama_arho = '';
+
+                              $str_nama_kelurahan = '';
+
+                              $total_osa = 0;
+
+                              @endphp
+
+                              @if($has_kelurahan[$i]->id_arho!=-1 && $has_kelurahan[$i]->id_kelurahan!=-1)
+
+                                @php
+
+                                 $nama_arho = $has_kelurahan[$i]->nama_arho;
+
+                                $id_arho = $has_kelurahan[$i]->id_arho;
+
+                                $str_nama_arho.='<p>'.$nama_arho."</p>";
+
+                                @endphp
+
+                                @for($j=$i;$j<count($has_kelurahan);$j++)
+                                    @php
+
+                                    if($has_kelurahan[$j]->id_arho == $id_arho){
+
+                                     $nama_kelurahan = $has_kelurahan[$j]->nama_kelurahan;
+                                      $str_nama_kelurahan.="<p>".$nama_kelurahan."</p>";
+
+                                      $total_osa = $total_osa + $has_kelurahan[$j]->osa;
+                                      $has_kelurahan[$j]->id_arho = -1;
+                                       $has_kelurahan[$j]->id_kelurahan = -1;
+
+                                      
+
+                                    }
+                                     
+                                    @endphp
+                                @endfor
+
+                               
+
                               @endif
 
-                              @if($jumlah_saldo >= $target_arho)
-                                <td>{{$laporan_kecamatan['jumlah_saldo']}}</td>
-                              @endif
-                              
-                              <td>{{$laporan_kecamatan['bal7']}}</td>
-                              <td>{{$laporan_kecamatan['persen_bal7']}}</td>
-                              <td>{{$laporan_kecamatan['bal30']}}</td>
-                              <td>{{$laporan_kecamatan['persen_bal30']}}</td>
+                               <td>{!! $str_nama_arho !!}</td>
+                                <td>{!! $str_nama_kelurahan !!}</td>
+
+
+                            @endfor
+
+
+
+                            
                             </tr>
-
-
-
-                          @endfor
-                          
-
-                          
-                       
+                         
                         </tbody>
-                      </table>
+                      
 
+                      </table>
                            
                            
                         </div>

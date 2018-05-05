@@ -36,6 +36,18 @@ class Arho
 	
 }
 
+/**
+* 
+*/
+class LaporanSaldoHandlingKecamatan 
+{
+	
+	function __construct()
+	{
+		# code...
+	}
+}
+
 
 class AnalisisLaporan
 {
@@ -46,6 +58,73 @@ class AnalisisLaporan
 	{
 		# code...
 		$this->nama_tabel = $nama_tabel;
+	}
+
+	public function hitung_laporan_saldo_handling_osa_kecamatan($kecamatan)
+	{
+		# code...
+		
+		$query_data = DB::table('report_handling')
+					  ->where('report_handling.kecamatan','LIKE','%'.$kecamatan->nama_kecamatan.'%')
+					  ->where('report_handling.status_report_handling','=',1)
+					  ->get();
+
+		$has_kelurahan = array();
+
+		foreach ($query_data as $item) {
+			# code...
+			$query_arho = DB::table('arho')
+						  ->where('arho.nama_lengkap','LIKE','%'.$item->arho.'%')
+						  ->get();
+
+			$query_kelurahan = DB::table('kelurahan')
+							   ->where('kelurahan.nama_kelurahan','LIKE','%'.$item->kelurahan.'%')
+							   ->get();
+
+			$query_osa_acc = DB::table('osa_acc_kelurahan')
+							->where('osa_acc_kelurahan.kelurahan','LIKE','%'.$item->kelurahan.'%')
+							->where('osa_acc_kelurahan.arho','LIKE','%'.$item->arho.'%')
+							->where('osa_acc_kelurahan.is_deleted','=',0)
+							->get();
+
+
+			if($query_arho->count() && $query_kelurahan->count() && $query_osa_acc->count()){
+				$kelurahan_obj = new Kelurahan;
+
+				$kelurahan_obj->nama_kelurahan = $item->kelurahan;
+
+				$kelurahan_obj->id_kelurahan = $query_kelurahan[0]->id_kelurahan;
+
+				$kelurahan_obj->saldo = $item->saldo;
+
+				$kelurahan_obj->nama_arho = $item->arho;
+
+				$kelurahan_obj->id_arho = $query_arho[0]->id_arho;
+
+				$kelurahan_obj->agreement = $item->agreement;
+
+				$kelurahan_obj->nama_cust = $item->nama_cust;
+
+				$kelurahan_obj->osa = $query_osa_acc[0]->osa;
+
+				array_push($has_kelurahan, $kelurahan_obj);
+
+			}
+		}
+
+
+
+		$laporan_saldo_handling_kecamatan = new LaporanSaldoHandlingKecamatan;
+
+		$laporan_saldo_handling_kecamatan->kecamatan = $kecamatan;
+
+		$laporan_saldo_handling_kecamatan->has_kelurahan = $has_kelurahan;
+
+		return $laporan_saldo_handling_kecamatan;
+
+
+
+
 	}
 
 	public function hitung_saldo_handling_arho_kecamatan($nama_arho,$nama_kecamatan)

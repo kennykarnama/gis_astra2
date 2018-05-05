@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 use App\AnalisisData\MyAnalisis;
+use App\AnalisisData\AnalisisLaporan;
+use App\Models\Kecamatan;
 
 class VisualisasiKecamatanController extends Controller
 {
@@ -25,18 +27,23 @@ class VisualisasiKecamatanController extends Controller
     	return view('pages.visualisasi_kecamatan');
     }
 
-    public function detail_kecamatan($kecamatan)
+    public function detail_kecamatan($id_kecamatan)
     {
     	# code...
-    	$query_kecamatan = DB::table('kecamatan')
-    						->where('kecamatan.id_kecamatan','=',$kecamatan)
-    						->get();
 
-    	$list_laporan = $this->get_laporan_arho2($kecamatan);
+      $analisis_laporan = new AnalisisLaporan ('test');
+
+      $kecamatan = Kecamatan::find($id_kecamatan);
+
+    	$laporan_saldo_handling_kecamatan = $analisis_laporan->hitung_laporan_saldo_handling_osa_kecamatan($kecamatan);
+
+      //dd($kecamatan);
+    	//$list_laporan = $this->get_laporan_arho2($kecamatan);
 
     	//dd($list_laporan);
 
-    	return view('pages.detail_kecamatan',['kecamatan'=>$query_kecamatan,'list_laporan'=>$list_laporan]);
+    	return view('pages.detail_kecamatan',['kecamatan'=>$kecamatan,
+        'laporan_saldo_handling_kecamatan'=>$laporan_saldo_handling_kecamatan]);
     }
 
     public function get_list_kecamatan(Request $request)
