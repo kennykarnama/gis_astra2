@@ -39,81 +39,91 @@
                           <tr>
                             <th>Arho</th>
                             <th>Kelurahan</th>
+                            <th>Saldo Handling</th>
                             <th>OSA</th>
                             <th>Target Actual</th>
                           </tr>
                         </thead>
 
+                       <tfoot>
+                         <tr>
+                           <td><b>Total</b></td>
+                           <td></td>
+                           <td>Rp.{{number_format($total_saldo_handling_kecamatan)}}</td>
+                           <td>Rp.{{number_format($total_osa_kecamatan)}}</td>
+                           <td>{{number_format($total_target_actual_kecamatan)}}</td>
+                         </tr>
+                       </tfoot>
+
                         <tbody>
-                          
                         
-                          <tr>
-                            @php
-                              
-                              $has_kelurahan = $laporan_saldo_handling_kecamatan->has_kelurahan;
+                        @for($i=0;$i<count($laporan_saldo_handling_osa);$i++)
+
+                        
+                          @php
+                           
+                           $info = $laporan_saldo_handling_osa[$i];
+
+                          
+
+                           @endphp
+
+                           @foreach($info as $key=>$value)
+
+                           @php
+                            $data_laporan = $value;
+
+                              $str_kelurahan = "";
+
+                              $str_osa = "";
+
+                              $str_saldo_handling = "";
+
+                              $str_target_actual = "";
+
+                           @endphp
+
+                           <tr>
+                             <td>{{$key}}</td>
+
+                             @php
 
                              
+                             @endphp
+
+                             @for($j=0;$j<count($data_laporan);$j++)
 
 
-                            @endphp
+                                  
+                                  @foreach($data_laporan[$j] as $key=>$value)
+                                   
+                                   @php
+                                    $str_kelurahan .= "<p>".$key."</p>";
 
-                            @for($i=0;$i<count($has_kelurahan);$i++)
+                                    $data_osa_handling = $value;
 
-                              @php
+                                    $str_osa.="<p>Rp.".number_format($data_osa_handling['total_osa'])."</p>";
 
-                              $str_nama_arho = '';
+                                    $str_saldo_handling.="<p>Rp.".number_format($data_osa_handling['total_saldo_handling'])."</p>";
 
-                              $str_nama_kelurahan = '';
+                                    $str_target_actual.="<p>".number_format($data_osa_handling['target_actual'])."%</p>";
 
-                              $total_osa = 0;
-
-                              @endphp
-
-                              @if($has_kelurahan[$i]->id_arho!=-1 && $has_kelurahan[$i]->id_kelurahan!=-1)
-
-                                @php
-
-                                 $nama_arho = $has_kelurahan[$i]->nama_arho;
-
-                                $id_arho = $has_kelurahan[$i]->id_arho;
-
-                                $str_nama_arho.='<p>'.$nama_arho."</p>";
-
-                                @endphp
-
-                                @for($j=$i;$j<count($has_kelurahan);$j++)
-                                    @php
-
-                                    if($has_kelurahan[$j]->id_arho == $id_arho){
-
-                                     $nama_kelurahan = $has_kelurahan[$j]->nama_kelurahan;
-                                      $str_nama_kelurahan.="<p>".$nama_kelurahan."</p>";
-
-                                      $total_osa = $total_osa + $has_kelurahan[$j]->osa;
-                                      $has_kelurahan[$j]->id_arho = -1;
-                                       $has_kelurahan[$j]->id_kelurahan = -1;
-
-                                      
-
-                                    }
-                                     
                                     @endphp
-                                @endfor
+                                  @endforeach
 
-                               
+                             @endfor
 
-                              @endif
+                             <td>{!!$str_kelurahan!!}</td>
+                             <td>{!!$str_osa!!}</td>
+                             <td>{!! $str_saldo_handling !!}</td>
+                             <td>{!!$str_target_actual!!}</td>
+                             
+                           </tr>
+                              
+                           @endforeach
+                        
 
-                               <td>{!! $str_nama_arho !!}</td>
-                                <td>{!! $str_nama_kelurahan !!}</td>
-
-
-                            @endfor
-
-
-
-                            
-                            </tr>
+                        @endfor
                          
                         </tbody>
                       
