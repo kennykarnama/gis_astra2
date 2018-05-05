@@ -1,21 +1,19 @@
 @extends('layouts.dashboard')
 
 @section('content')
-	
-
 	 <section class="content">
         <div class="container-fluid">
             <!-- Google Maps -->
            
 
-            <!-- visualisasi Arho marker -->
+            <!-- visualisasi customer marker -->
 
               <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Visualisasi ARHO
+                                Visualisasi Customer
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -31,7 +29,7 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <div id="visualisasi_arho" class="gmap"></div>
+                            <div id="visualisasi_customer" class="gmap"></div>
                            
                         </div>
                     </div>
@@ -40,47 +38,22 @@
             
         </div>
 
-          <div class="modal fade" id="modal-detail-arho" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
-                        </div>
-                        <div class="modal-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
-                            vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
-                            Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
-                            nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
-                            Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
 
          
     </section>
 
     @push('scripts')
-    	 <!-- Google Maps API Js -->
+
+    <!-- Google Maps API Js -->
     <script src="https://maps.google.com/maps/api/js?v=3&key=AIzaSyCyeVc3UAC4QH-BTOMxDmHurREmagwv3DY"></script>
 
     <!-- GMaps PLugin Js -->
-    <!-- <script src="{{asset('plugins/gmaps/gmaps.js')}}"></script> -->
+    <script src="{{asset('plugins/gmaps/gmaps.js')}}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+ <script>
 
-	 <!-- SweetAlert Plugin Js -->
-    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
-
-    <script type="text/javascript" src="{{asset('js/accounting.js')}}"></script>
-
-    <script type="text/javascript">
-
-    var visualisasi_arho;
+    var visualisasi_customer;
 
     var isIE = false;
 
@@ -119,12 +92,12 @@
       }
     })();
 
-    function load_detail_arho () {
+    function load_detail_customer () {
       // body...
-      $('#modal-detail-arho').modal('show');
+      $('#modal-detail-customer').modal('show');
     }
 
-    function load_laporan_arho () {
+    function load_laporan_customer () {
         // body...
             $.ajaxSetup({
                         headers: {
@@ -134,7 +107,7 @@
 
                     $.ajax({
                        type:'POST',
-                       url:'{{route("admin.visualisasi.arho.get_laporan_arho")}}',
+                       url:'{{route("admin.visualisasi.customer.get_laporan_customer")}}',
                        data:{
 
                       
@@ -148,7 +121,7 @@
     function setup_markers (data) {
       // body...
 
-       var oms = new OverlappingMarkerSpiderfier(visualisasi_arho, {
+       var oms = new OverlappingMarkerSpiderfier(visualisasi_customer, {
   markersWontMove: true,
   markersWontHide: true,
   basicFormatEvents: true
@@ -169,7 +142,7 @@
           
           var penugasan = data[i];
 
-          var nama_arho = penugasan.nama_arho;
+          var nama_customer = penugasan.nama_customer;
 
           var avatar = penugasan.avatar;
 
@@ -179,7 +152,7 @@
 
 
 
-          var pinColor = penugasan.warna_arho;
+          var pinColor = penugasan.warna_customer;
 
           warnanya = hex2rgb(pinColor);
 
@@ -201,32 +174,28 @@
 
             var longitude = kecamatan.lng;
 
-            var total_acc = kecamatan.total_acc;
-
            
 
             //console.log(lat+" "+lng);
 
             //console.log(kecamatan.LAPORAN);
             var mycontent = '<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
-                                      +"<p style='text-align:center;'><button class='btn btn-primary btn-detail-arho'"
+                                      +"<p style='text-align:center;'><button class='btn btn-primary btn-detail-customer'"
                                      
                                       +" >Lihat Detail</button>";
 
             
 
-            var alamat_detail_laporan = "{{route('admin.visualisasi.arho.detail_laporan',[':arho',':kecamatan'])}}";
-            alamat_detail_laporan = alamat_detail_laporan.replace(':arho',penugasan.id_arho);
+            var alamat_detail_laporan = "{{route('admin.visualisasi.customer.detail_laporan',[':customer',':kecamatan'])}}";
+            alamat_detail_laporan = alamat_detail_laporan.replace(':customer',penugasan.id_customer);
              alamat_detail_laporan = alamat_detail_laporan.replace(':kecamatan',kecamatan.id_kecamatan);
 
               var obj = {
               lng:longitude,
               lat:latitude,
-              text:nama_arho +" "+kecamatan.nama_kecamatan+'<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
+              text:nama_customer +" "+kecamatan.nama_kecamatan+'<p><b>Kecamatan '+kecamatan.nama_kecamatan+"</b></p>"
                                       +"<p style='text-align:center;'> <a target='_blank' href='"+alamat_detail_laporan+"'>Lihat Detail</a>"
-                                      +"<p>Jumlah Saldo Handling "+accounting.formatMoney(kecamatan.jumlah_saldo_handling, "Rp.", 2, ".", ",") +"</p>"
-                                      +"<p style='text-align:center;'>Total Account "+total_acc+"</p>",
-
+                                      +"<p>Jumlah Saldo Handling "+accounting.formatMoney(kecamatan.jumlah_saldo_handling, "Rp.", 2, ".", ",") +"</p>",        
               rgb:{r:warnanya[0],g:warnanya[1],b:warnanya[2]},
               pin_color:pinColor
 
@@ -265,17 +234,17 @@
 
           google.maps.event.addListener(marker, 'click', function(e) {  // 'spider_click', not plain 'click'
             iw.setContent(markerData.text);
-            iw.open(visualisasi_arho, marker);
+            iw.open(visualisasi_customer, marker);
           })
 
           ;
           oms.addMarker(marker);  // adds the marker to the spiderfier _and_ the map
         })();
       }
-      window.map = visualisasi_arho;  // for debugging/exploratory use in console
+      window.map = visualisasi_customer;  // for debugging/exploratory use in console
       window.oms = oms;  // ditto
 
-      visualisasi_arho.setOptions({draggable:true});
+      visualisasi_customer.setOptions({draggable:true});
     
 
     };
@@ -290,7 +259,7 @@
 
                     $.ajax({
                        type:'POST',
-                       url:'{{route("admin.visualisasi.arho.fetch_markers")}}',
+                       url:'{{route("admin.visualisasi.customer.fetch_markers")}}',
                        data:{
 
                       
@@ -307,25 +276,25 @@
 
         $(document).ready(function () {
             // body...
-         //  visualisasi_arho = new GMaps({
-         //    div: '#visualisasi_arho',
+         //  visualisasi_customer = new GMaps({
+         //    div: '#visualisasi_customer',
          //    lat:  -7.250445,
          //    lng: 112.768845
          // });
 
-         var visualisasi_arho_element = document.getElementById('visualisasi_arho');
+         var visualisasi_customer_element = document.getElementById('visualisasi_customer');
 
-         visualisasi_arho = new google.maps.Map(visualisasi_arho_element, { center: { lat:  -7.250445, lng: 112.768845 }, zoom: 7 });
+         visualisasi_customer = new google.maps.Map(visualisasi_customer_element, { center: { lat:  -7.250445, lng: 112.768845 }, zoom: 7 });
 
          
 
-            //load_laporan_arho();
+            //load_laporan_customer();
             load_markers();
 
            
         });
 
-    </script>
-
+   </script>
     @endpush
+
 @stop

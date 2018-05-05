@@ -196,6 +196,38 @@ class AnalisisLaporan
 		return $jumlah_account;
 	}
 
+	public function hitung_jumlah_account_arho_kecamatan($nama_arho,$nama_kecamatan)
+	{
+		# code...
+		$query_data_osa_acc = DB::table('osa_acc_kelurahan')
+							  ->where('osa_acc_kelurahan.is_deleted','=',0)
+							  ->where('osa_acc_kelurahan.arho','LIKE','%'.$nama_arho.'%')
+							  ->get();
+
+		$total_acc = 0;
+
+		foreach ($query_data_osa_acc as $data_osa_acc) {
+			# code...
+			$query_kecamatan = DB::table('kelurahan')
+							   ->join('kecamatan','kecamatan.id_kecamatan','=','kelurahan.id_kecamatan')
+							   ->where('kelurahan.nama_kelurahan','LIKE','%'.$data_osa_acc->kelurahan.'%')
+							   ->get();
+
+			// if($query_kecamatan->count()){
+
+			if(stripos($query_kecamatan[0]->nama_kecamatan, $nama_kecamatan) !== FALSE){
+				$total_acc+=$data_osa_acc->acc;
+			}
+				
+			// }
+			
+
+
+		}
+
+		return $total_acc;
+	}
+
 	public function hitung_jumlah_customer()
 	{
 		# code...

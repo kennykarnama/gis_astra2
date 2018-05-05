@@ -18,6 +18,7 @@ Route::get('/pusher', function() {
 
 Route::get('/admin/login', ['uses' => 'Auth\AdminLoginController@showLoginForm'])->name('admin.login');
 
+
 Route::post('/admin/login/submit', ['uses' => 'Auth\AdminLoginController@login'])->name('admin.login.submit');
 
 Route::post('/admin/logout', ['uses' => 'Auth\AdminLoginController@logout'])->name('admin.logout');
@@ -26,6 +27,8 @@ Route::get('/', ['uses' => 'Pages\InterfaceController@dashboard'])->name('admin.
 
 
 Route::get('/informasi_arho', ['uses' => 'Pages\InformasiArhoController@index'])->name('admin.informasi_arho');
+
+Route::get('/meong', ['uses' => 'Pages\VisualisasiArhoController@meong'])->name('admin.meong');
 
 Route::post('/informasi_arho/list_arho', ['uses' => 'Pages\InformasiArhoController@all_arho'])->name('admin.informasi_arho.list_arho.all_arho');
 
