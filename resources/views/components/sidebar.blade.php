@@ -45,7 +45,7 @@
 
                          <li >
                                 <a href="{{route('admin.informasi_arho')}}">
-                                    <span>Arho</span>
+                                    <span>ARHO</span>
                                 </a>
                             </li>
 

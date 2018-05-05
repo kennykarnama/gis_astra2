@@ -4,7 +4,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html">Astra - Geographic Information System</a>
+                <a class="navbar-brand" href="index.html">Astra Credit Companies - Geographic Information System</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
 
@@ -31,7 +31,8 @@
                                             <div class="menu-info">
                                                 <h4>{{Auth::user()->username}}</h4>
                                                 <p>
-                                                    <i class="material-icons">email</i>{{Auth::user()->email}}
+                                                    <!-- <i class="material-icons">email</i>{{Auth::user()->email}} -->
+                                                    <p style="color: #ffffff">Test</p>
                                                 </p>
                                             </div>
                                         </a>

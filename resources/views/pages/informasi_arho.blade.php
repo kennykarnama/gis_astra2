@@ -72,7 +72,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Daftar Arho
+                                Daftar ARHO
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
