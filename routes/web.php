@@ -111,6 +111,8 @@ Route::post('/visualisasi/arho/fetch_markers', ['uses' => 'Pages\VisualisasiArho
 
 Route::get('/visualisasi/arho/detail_laporan/{arho}/{kecamatan}', ['uses' => 'Pages\VisualisasiArhoController@detail_laporan'])->name('admin.visualisasi.arho.detail_laporan');
 
+Route::post('/visualisasi/arho/get_arho_legend', ['uses' => 'Pages\VisualisasiArhoController@get_arho_legend'])->name('admin.visualisasi.arho.get_arho_legend');
+
 Route::get('/visualisasi/kecamatan', ['uses' => 'Pages\VisualisasiKecamatanController@indexHome'])->name('admin.visualisasi.kecamatan');
 
 Route::post('/visualisasi/kecamatan/get_list_kecamatan', ['uses' => 'Pages\VisualisasiKecamatanController@get_list_kecamatan'])->name('admin.visualisasi.kecamatan.get_list_kecamatan');

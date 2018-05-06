@@ -38,6 +38,16 @@ class VisualisasiArhoController extends Controller
     	return view('pages.visualisasi_data_arho',[]);
     }
 
+    public function get_arho_legend(Request $request)
+    {
+      # code...
+      $query_arho = DB::table('arho')
+                    ->where('arho.is_aktif','=',1)
+                    ->get();
+
+      return response()->json($query_arho); 
+    }
+
     public function detail_laporan($id_arho,$id_kecamatan)
     {
       # code...

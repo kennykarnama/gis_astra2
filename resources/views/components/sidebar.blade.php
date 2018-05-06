@@ -1,5 +1,5 @@
 
-    <section>
+<section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
@@ -351,4 +351,4 @@
             </div>
         </aside>
         <!-- #END# Right Sidebar -->
-    </section>
+</section>

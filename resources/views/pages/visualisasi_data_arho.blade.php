@@ -2,6 +2,66 @@
 
 @section('content')
 	
+<style type="text/css">
+  
+  .foo {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.blue {
+  background: #13b4ff;
+}
+
+.purple {
+  background: #ab3fdd;
+}
+
+.wine {
+  background: #ae163e;
+}
+
+</style>
+
+<section>
+  
+  <aside id="aside_legend_arho" class="sidebar">
+     <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Legends
+                            </h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Lihat Tabel</a></li>
+                                       <!--  <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li> -->
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+
+                          <div class="container" id="legend_arho"></div>
+                         
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+
+  </aside>
+</section>
 
 	 <section class="content">
         <div class="container-fluid">
@@ -23,7 +83,7 @@
                                         <i class="material-icons">more_vert</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Lihat Tabel</a></li>
+                                        <li id="btn_lihat_legend"><a>Legend</a></li>
                                        <!--  <li><a href="javascript:void(0);">Another action</a></li>
                                         <li><a href="javascript:void(0);">Something else here</a></li> -->
                                     </ul>
@@ -32,11 +92,17 @@
                         </div>
                         <div class="body">
                             <div id="visualisasi_arho" class="gmap"></div>
+
+                            
                            
                         </div>
                     </div>
+
+
                 </div>
             </div>
+
+            
             
         </div>
 
@@ -74,9 +140,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 
 	 <!-- SweetAlert Plugin Js -->
-    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
 
     <script type="text/javascript" src="{{asset('js/accounting.js')}}"></script>
+
+    <script src="{{asset('plugins/bootstrap-notify/bootstrap-notify.js')}}"></script>
 
     <script type="text/javascript">
 
@@ -305,22 +373,74 @@
                     });
     }
 
+function setup_arho_legends() {
+  // body...
+             $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                       type:'POST',
+                       url:'{{route("admin.visualisasi.arho.get_arho_legend")}}',
+                       data:{
+
+                      
+                       },
+                       success:function(list_arho){
+
+                        //console.log(data);
+
+                          for(var i=0;i<list_arho.length;i++){
+                              
+                              var nama_arho = list_arho[i].nama_lengkap;
+                              
+
+                              var warna_arho = list_arho[i].warna_arho;
+
+                              map_legend(nama_arho,warna_arho);
+
+                          }
+                         
+                       }
+                    });
+
+};
+
+function map_legend(nama_arho,warna_tag) {
+  // body...
+  //   $.notify({
+  //   title: "<div class='foo' style='background:"+warna_tag+"'></div>",
+  //   message: nama_arho
+  // });
+
+  var text = "<p><div class='foo' style='background:"+warna_tag+"'></div></p>";
+  text+="<p>"+nama_arho+"</p>";
+
+  $('#legend_arho').append(text);
+
+};
+
         $(document).ready(function () {
             // body...
-         //  visualisasi_arho = new GMaps({
-         //    div: '#visualisasi_arho',
-         //    lat:  -7.250445,
-         //    lng: 112.768845
-         // });
-
+       
+          $('#btn_lihat_legend').click(function () {
+            // body...
+              $('#aside_legend_arho').toggle();
+          });
          var visualisasi_arho_element = document.getElementById('visualisasi_arho');
 
          visualisasi_arho = new google.maps.Map(visualisasi_arho_element, { center: { lat:  -7.250445, lng: 112.768845 }, zoom: 7 });
 
          
-
+          //map_legend();
             //load_laporan_arho();
+
+            setup_arho_legends();
             load_markers();
+
+
 
            
         });
