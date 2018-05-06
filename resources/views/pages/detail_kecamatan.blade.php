@@ -49,9 +49,9 @@
                          <tr>
                            <td><b>Total</b></td>
                            <td></td>
-                           <td>Rp.{{number_format($total_saldo_handling_kecamatan)}}</td>
                            <td>Rp.{{number_format($total_osa_kecamatan)}}</td>
-                           <td>{{number_format($total_target_actual_kecamatan)}} %</td>
+                           <td>Rp.{{number_format($total_saldo_handling_kecamatan)}}</td> 
+                           <td>{{$total_target_actual_kecamatan}} %</td>
                          </tr>
                        </tfoot>
 
@@ -106,7 +106,7 @@
 
                                     $str_saldo_handling.="<p>Rp.".number_format($data_osa_handling['total_saldo_handling'])."</p>";
 
-                                    $str_target_actual.="<p>".number_format($data_osa_handling['target_actual'])."%</p>";
+                                    $str_target_actual.="<p>".$data_osa_handling['target_actual']." %</p>";
 
                                     @endphp
                                   @endforeach

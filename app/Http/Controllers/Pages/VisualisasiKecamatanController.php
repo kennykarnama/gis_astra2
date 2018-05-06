@@ -100,12 +100,17 @@ class VisualisasiKecamatanController extends Controller
                                   ->where('osa_acc_kelurahan.kelurahan','LIKE','%'.$item_kelurahan.'%')
                                   ->sum('osa_acc_kelurahan.osa');
 
+            $total_bal7 = DB::table('osa_acc_kelurahan')
+                                  ->where('osa_acc_kelurahan.arho','LIKE','%'.$item.'%')
+                                  ->where('osa_acc_kelurahan.kelurahan','LIKE','%'.$item_kelurahan.'%')
+                                  ->sum('osa_acc_kelurahan.bal_7');
+
             $final_total_osa+=$total_osa;
 
             $target_actual = 0.0;
 
-            if($total_saldo_handling > 0 && $total_osa > 0){
-              $target_actual = $total_saldo_handling/$total_osa * 100;
+            if($total_bal7 > 0 && $total_osa > 0){
+              $target_actual = $total_bal7/$total_osa * 100;
             }
 
             $final_total_target_actual+=$target_actual;
