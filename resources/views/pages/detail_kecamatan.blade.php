@@ -39,8 +39,8 @@
                           <tr>
                             <th>Arho</th>
                             <th>Kelurahan</th>
-                            <th>Saldo Handling</th>
                             <th>OSA</th>
+                            <th>Saldo Handling</th>
                             <th>Target Actual</th>
                           </tr>
                         </thead>
