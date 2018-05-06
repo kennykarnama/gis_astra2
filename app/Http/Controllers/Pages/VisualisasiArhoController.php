@@ -46,15 +46,18 @@ class VisualisasiArhoController extends Controller
 
       $arho = Arho::find($id_arho);
 
-      $query_actual_arho = DB::table('actual_arho')
-                          ->where('actual_arho.arho','LIKE','%'.$arho->nama_lengkap.'%')
+      $kecamatan = Kecamatan::find($id_kecamatan);
+
+      $query_actual_arho = DB::table('actual_arho_kecamatan')
+                          ->where('actual_arho_kecamatan.arho','LIKE','%'.$arho->nama_lengkap.'%')
+                          ->where('actual_arho_kecamatan.kecamatan','LIKE','%'.$kecamatan->nama_kecamatan.'%')
                           ->get();
 
       $query_target_perusahaan = DB::table('target_arho')
                                 ->where('target_arho.id_arho','=',$arho->id_arho)
                                 ->get();
 
-      $kecamatan = Kecamatan::find($id_kecamatan);
+      
 
       $total_saldo_handling =  $analisis_laporan->hitung_saldo_handling_arho_kecamatan($arho->nama_lengkap,$kecamatan->nama_kecamatan);
 
@@ -62,7 +65,7 @@ class VisualisasiArhoController extends Controller
 
       //dd($laporan_osa_arho_kecamatan);
 
-      $actual = floatval($query_actual_arho[0]->actual) * 100;
+      $actual = floatval($query_actual_arho[0]->persen) * 100;
 
       $target_perusahaan = $query_target_perusahaan[0]->besar_target;
 

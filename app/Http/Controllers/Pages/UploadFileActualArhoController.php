@@ -24,7 +24,7 @@ class UploadFileActualArhoController extends Controller
     	# code...
     	$this->middleware('auth:admin');
 
-    	$this->nama_tabel = "actual_arho";
+    	$this->nama_tabel = "actual_arho_kecamatan";
     }
 
     public function index()
